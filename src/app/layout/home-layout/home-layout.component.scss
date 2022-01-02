@@ -1,0 +1,41 @@
+@import "~src/assets/css/sass/themes/vien.light.greenlime.scss";
+.sectionOne {
+    padding:0% 4% 0% 0%;
+    background-image: url('~src/assets/imgs/site/background-purged.png');
+    background-color: black;
+    background-position: absolute;
+    background-repeat: no-repeat;
+    background-position-y: center;
+    background-position-x: center;  
+    background-size: cover;
+  }
+  .textlink  {  
+    color: #C3C3C3 !important;
+    cursor: pointer !important;
+    }
+  .textlink22  {  
+    color: #21f56d !important;
+    cursor: pointer !important;
+    }
+    .textmobile  {
+    color: black !important;
+    cursor: pointer !important;
+    }
+    .nav-item a:hover{
+      border-bottom: 3px solid #21f56d;
+      }
+    #navmobile a:hover{
+      border-bottom: 3px solid #21f56d;
+      }
+#parag {
+    text-align: justify;
+    color:#C3C3C3;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: bold;
+    font-family:'Arial Rounded MT'
+}
+
+.app {
+  mix-blend-mode: screen;
+}

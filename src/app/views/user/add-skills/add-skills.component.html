@@ -1,0 +1,149 @@
+<h4 class="text-center">Complete Your Account</h4>
+<br />
+
+<!-- Login Form -->
+<form #completeForm="ngForm" novalidate (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="faouriteplayer">Your Favourite Player</label>
+    <input
+      faouriteplayer
+
+      [matAutocomplete]="auto"
+      [formControl]="myControlPlayerFav"
+      name="faouriteplayer"
+      id="faouriteplayer"
+      class="form-control"
+      placeholder="Enter your Favourite Player..."
+    />
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+    <mat-option *ngFor="let option of filterOptionsPlayer | async" [value]="option">
+    {{option.firstName}}{{" "}}{{option.lastName}}
+    </mat-option>
+    </mat-autocomplete>
+  </div>
+ <div class="form-group">
+    <label for="faouriteteam">Your Favourite Team</label>
+    <input
+      faouriteteam
+
+      [matAutocomplete]="autoteam"
+      [formControl]="myControlTeamFav"
+      name="faouriteteam"
+      id="faouriteteam"
+      class="form-control"
+      placeholder="Enter your Favourite Team..."
+    />
+    <mat-autocomplete #autoteam="matAutocomplete" [displayWith]="displayFnTeam">
+    <mat-option *ngFor="let os of filterOptionsTeam | async" [value]="os">
+    {{os.name}}
+    </mat-option>
+    </mat-autocomplete>
+  </div>
+  <div class="form-group">
+    <label for="faouriteCountries">Your Nationality</label>
+    <input
+      faouriteCountries
+      [matAutocomplete]="autocountries"
+      [formControl]="myControlCountries"
+      name="faouriteCountries"
+      id="faouriteCountries"
+      class="form-control"
+      placeholder="Enter your Nationality..."
+    />
+    <mat-autocomplete #autocountries="matAutocomplete" [displayWith]="displayFnCountries">
+    <mat-option *ngFor="let co of filterOptionsCountries | async" [value]="co">
+    {{co.Name}}
+    </mat-option>
+    </mat-autocomplete>
+  </div>
+  <div class="form-group">
+    <label for="faouritelocalplayer">Your Favourite Local Player</label>
+    <input
+      faouriteplayer
+      [matAutocomplete]="autolocalplayer"
+      [formControl]="myControlLocalPlayerFav"
+      name="faouritelocalplayer"
+      id="faouritelocalplayer"
+      class="form-control"
+      placeholder="Enter your Favourite Local Player..."
+    />
+    <mat-autocomplete #autolocalplayer="matAutocomplete" [displayWith]="displayFn">
+    <mat-option *ngFor="let option of filterOptionsLocalPlayer | async" [value]="option">
+    {{option.firstName}}{{" "}}{{option.lastName}}
+    </mat-option>
+    </mat-autocomplete>
+  </div>
+  <div class="form-group">
+    <label for="faouritelocalteam">Your Favourite Local Team</label>
+    <input
+      faouriteplayer
+      [matAutocomplete]="autolocalteam"
+      [formControl]="myControlLocalTeamFav"
+      name="faouritelocalteam"
+      id="faouritelocalteam"
+      class="form-control"
+      placeholder="Enter your Favourite Local Team..."
+    />
+    <mat-autocomplete #autolocalteam="matAutocomplete" [displayWith]="displayFnTeam">
+    <mat-option *ngFor="let opt of filterOptionsLocalTeam | async" [value]="opt">
+    {{opt.name}}
+    </mat-option>
+    </mat-autocomplete>
+  </div>
+
+    <div class="form-group">
+    <label for="role">Your Role</label>
+    <input
+      role
+      [matAutocomplete]="autoroles"
+      [formControl]="myControlRole"
+      name="role"
+      id="role"
+      class="form-control"
+      placeholder="Enter your Role..."
+    />
+    <mat-autocomplete #autoroles="matAutocomplete" >
+    <mat-option *ngFor="let role of filteredRoles | async " [value]="role">
+    {{role}}
+    </mat-option>
+    </mat-autocomplete>
+  </div>
+  <div class="form-group">
+    <label for="age">Your Age</label>
+    <input
+      type="text"
+      age
+      ngModel
+      #height="ngModel"
+      [(ngModel)]="ageModel"
+      [ngModelOptions]="{ standalone: true }"
+      id="age"
+      class="form-control"
+      placeholder="Enter your age..."
+    />
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group form-group--sm">
+        <input
+          type="submit"
+          class="btn btn-primary-inverse btn-lg btn-block"
+          value="Finalize my account"
+        />
+      </div>
+    </div>
+	<div class="col-md-6">
+      <div class="form-group form-group--sm">
+        <input
+          type="button"
+          class="btn btn-default btn-lg btn-block" (click)="onRemove()"
+          value="Cancel"
+        />
+      </div>
+    </div>
+  </div>
+</form>
+<!-- Login Form / End -->
+
+<!-- Content / End -->
+<simple-notifications></simple-notifications>

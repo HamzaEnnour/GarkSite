@@ -1,0 +1,328 @@
+<!-- Page Heading
+		================================================== -->
+		<div class="page-heading">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-10 offset-md-1">
+						<h1 class="page-heading__title">Your <span class="highlight">Account</span></h1>
+						<ol class="page-heading__breadcrumb breadcrumb">
+							<li class="breadcrumb-item"><a href="/views/home">Home</a></li>
+							<li class="breadcrumb-item active" aria-current="page">Your Account</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Page Heading / End -->
+		
+
+		<!-- Content
+		================================================== -->
+		<div class="site-content">
+			<div class="container">
+		
+				<div class="row">
+		
+					<div class="col-lg-4">
+		
+						<!-- Account Navigation -->
+						<div class="card">
+							<div class="card__header">
+								<h4>Welcome Back!</h4>
+							</div>
+							<div class="card__content">
+								<nav class="df-account-navigation">
+									<ul>
+										<li class="df-account-navigation__link">
+											<a (click)="OnUserDataDiv()" style="color: #31404b !important;cursor: pointer !important;" >Personal Information</a>
+										</li>
+										<li class="df-account-navigation__link">
+											<a (click)="OnSkillsDataDiv()" style="color: #31404b !important;cursor: pointer !important;">Skills Information</a>
+										</li>
+										
+									</ul>
+								</nav>
+							</div>
+						</div>
+						<!-- Account Navigation / End -->
+					</div>
+		
+					<div class="col-lg-8">
+		
+						<!-- Personal Information -->
+						<div class="card card--lg" id="user">
+							<div class="card__header">
+								<h4>Personal Information</h4>
+							</div>
+							<div class="card__content">
+								<form #UserForm="ngForm" novalidate (ngSubmit)="onSubmitUser()" class="df-personal-info">
+		
+									<div class="form-group form-group--upload">
+										<div class="form-group__avatar">
+											<img src="{{fb}}" style="height:60px;width:60px">
+											<div class="form-group__label">
+												<h6>Profile Photo</h6>
+												<span>Minimum size 60x60px</span>
+											</div>
+										</div>
+										<div class="form-group__upload">
+											<label class="btn btn-default btn-xs btn-file">
+												{{filename}} <input type="file" [formControl]="myImage" accept="image/gif, image/jpeg, image/png, image/svg+xml, image/pipeg, image/bmp" (change)="UpdateImage($event)" class="form-control-file" style="display: none;">
+											</label>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="account-firstname">First Name</label>
+												<input type="text" firstname ngModel #firstname="ngModel" [(ngModel)]="firstnameModel" class="form-control" value="" name="account-firstname" id="account-firstname" placeholder="Your first name...">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="account-lastname">Last Name</label>
+												<input type="text" lastname ngModel #lastname="ngModel" [(ngModel)]="lastnameModel" class="form-control" value="" name="account-lastname" id="account-lastname" placeholder="Your last name...">
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="account-email">Email</label>
+												<input type="email" email ngModel #email="ngModel" [(ngModel)]="emailModel" class="form-control" value="" name="account-email" id="account-email" placeholder="jamesgirobilli@yourmail.com">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="account-birthday">Birthday Date</label>
+												<input type="date" birthday ngModel #birthday="ngModel" [(ngModel)]="birthdayModel" class="form-control" value="" name="account-birthday" id="account-birthday" >
+											</div>
+										</div>
+									</div>
+		
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="account-password">Change Password</label>
+												<input type="password" password ngModel #password="ngModel" [(ngModel)]="passwordModel" class="form-control" value="" name="account-password" id="account-password" placeholder="**********">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="account-password-repeat">Repeat Password</label>
+												<input type="password" passwordrepeat ngModel #passwordrepeat="ngModel" [(ngModel)]="passwordrepeatModel" class="form-control" value="" name="account-password-repeat" id="account-password-repeat" placeholder="**********">
+											</div>
+										</div>
+									</div>
+		
+		
+									<div class="form-group form-group--sm">
+										<label for="account-address">Full Address</label>
+										<input type="text" address ngModel #address="ngModel" [(ngModel)]="addressModel" class="form-control" value="" name="account-address" id="account-address" placeholder="Enter your street address...">
+									</div>
+									<div class="form-group">
+									<label for="account-phone">Phone</label>
+										<input type="text" phone ngModel #phone="ngModel" [(ngModel)]="phoneModel" class="form-control" value="" name="account-phone" id="account-phone" placeholder="Enter your phone number...">
+									</div>
+		
+									<div class="form-group--submit">
+										<button type="submit" class="btn btn-default btn-lg btn-block">Update changes</button>
+									</div>
+		
+								</form>
+							</div>
+						</div>
+						<!-- Personal Information / End -->
+					
+		
+						<!-- Personal Information -->
+						<div class="card card--lg" id="skills">
+							<div class="card__header">
+								<h4>Skills Information</h4>
+							</div>
+							<div class="card__content">
+								<form class="df-personal-info" #SkillsForm="ngForm" novalidate >
+		 <label for="form-group__avatar">Teams</label>
+		 <br>
+		<div class="form-group form-group--upload">
+		
+										<div class="form-group__avatar" *ngIf="mySkills!=undefined" id="form-group__avatar">
+											<img *ngFor="let team of mySkills.teams" (click)="GoToTeam(team._id)" matTooltip="{{team.name}}" src="{{team.image}}" style="height:60px;width:60px; cursor : help">
+										</div>
+	<div id="fixedbutton">
+    <button mat-fab style="background-color: rgba(0,229,107,1) !important;outline:none !important;" (click)="AddTeam()">
+        <mat-icon>add</mat-icon>
+    </button>
+</div>
+		</div>
+								
+									 <div class="form-group">
+    <label for="faouriteplayer">Your Favourite Player</label>
+    <input
+      faouriteplayer
+
+      [matAutocomplete]="auto"
+      [formControl]="myControlPlayerFav"
+      name="faouriteplayer"
+      id="faouriteplayer"
+      class="form-control"
+      placeholder="Enter your Favourite Player..."
+    />
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+    <mat-option *ngFor="let option of filterOptionsPlayer | async" [value]="option">
+    {{option.firstName}}{{" "}}{{option.lastName}}
+    </mat-option>
+    </mat-autocomplete>
+  </div>
+ <div class="form-group">
+    <label for="faouriteteam">Your Favourite Team</label>
+    <input
+      faouriteteam
+
+      [matAutocomplete]="autoteam"
+      [formControl]="myControlTeamFav"
+      name="faouriteteam"
+      id="faouriteteam"
+      class="form-control"
+      placeholder="Enter your Favourite Team..."
+    />
+    <mat-autocomplete #autoteam="matAutocomplete" [displayWith]="displayFnTeam">
+    <mat-option *ngFor="let os of filterOptionsTeam | async" [value]="os">
+    {{os.name}}
+    </mat-option>
+    </mat-autocomplete>
+  </div>
+
+  <div class="form-group">
+    <label for="faouritelocalplayer">Your Favourite Local Player</label>
+    <input
+      faouritelocalplayer
+
+      [matAutocomplete]="autolocalplayer"
+      [formControl]="myControlLocalPlayerFav"
+      name="faouritelocalplayer"
+      id="faouritelocalplayer"
+      class="form-control"
+      placeholder="Enter your Favourite Local Player..."
+    />
+    <mat-autocomplete #autolocalplayer="matAutocomplete" [displayWith]="displayFn">
+    <mat-option *ngFor="let option of filterOptionsLocalPlayer | async" [value]="option">
+    {{option.firstName}}{{" "}}{{option.lastName}}
+    </mat-option>
+    </mat-autocomplete>
+  </div>
+  <div class="form-group">
+    <label for="faouritelocalteam">Your Favourite Local Team</label>
+    <input
+      faouritelocalteam
+
+      [matAutocomplete]="autolocalteam"
+      [formControl]="myControlLocalTeamFav"
+      name="faouritelocalteam"
+      id="faouritelocalteam"
+      class="form-control"
+      placeholder="Enter your Favourite Local Team..."
+    />
+    <mat-autocomplete #autolocalteam="matAutocomplete" [displayWith]="displayFnTeam">
+    <mat-option *ngFor="let opt of filterOptionsLocalTeam | async" [value]="opt">
+    {{opt.name}}
+    </mat-option>
+    </mat-autocomplete>
+  </div>
+  <div class="form-group">
+    <label for="faouriteCountries">Your Nationality</label>
+    <input
+      faouriteCountries
+
+      [matAutocomplete]="autocountries"
+      [formControl]="myControlCountries"
+      name="faouriteCountries"
+      id="faouriteCountries"
+      class="form-control"
+      placeholder="Enter your Nationality..."
+    />
+    <mat-autocomplete #autocountries="matAutocomplete" [displayWith]="displayFnCountries">
+    <mat-option *ngFor="let co of filterOptionsCountries | async" [value]="co">
+    {{co.Name}}
+    </mat-option>
+    </mat-autocomplete>
+  </div>
+    <div class="form-group">
+    <label for="role">Your Role</label>
+    <input
+      role
+      [matAutocomplete]="autoroles"
+      [formControl]="myControlRole"
+      name="role"
+      id="role"
+      class="form-control"
+      placeholder="Enter your Role..."
+    />
+    <mat-autocomplete #autoroles="matAutocomplete" >
+    <mat-option *ngFor="let role of filteredRoles | async " [value]="role">
+    {{role}}
+    </mat-option>
+    </mat-autocomplete>
+  </div>
+  <div class="row">
+<div class="col-md-6">
+	<div class="form-group">
+		<label for="account-height">Height (1.8 m)</label>
+		<input type="number" height ngModel #height="ngModel" [(ngModel)]="heightModel" class="form-control" name="account-height" id="account-height" placeholder="Your height...">
+	</div>
+</div>
+<div class="col-md-6">
+	<div class="form-group">
+		<label for="account-weight">Weight (70 kg)</label>
+		<input type="number" weight ngModel #weight="ngModel" [(ngModel)]="weightModel" class="form-control"  name="account-weight" id="account-weight" placeholder="Your weight...">
+	</div>
+</div></div>
+  <div class="form-group">
+    <label for="age">Your Age</label>
+    <input
+      type="text"
+      age
+      ngModel
+      #height="ngModel"
+      [(ngModel)]="ageModel"
+      [ngModelOptions]="{ standalone: true }"
+      id="age"
+      class="form-control"
+      placeholder="Enter your age..."
+    />
+  </div>
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea 
+	class="form-control" 
+	id="description" 
+	description 
+	ngModel 
+	#description="ngModel" 
+	[(ngModel)]="descriptionModel"
+	[ngModelOptions]="{ standalone: true }" 
+	rows="3" >
+	</textarea>
+  </div>
+  
+		
+	<div class="form-group--submit">
+	<button type="submit" class="btn btn-default btn-lg btn-block" (click)="onSubmitSkills()">Update Skills changes</button>
+	</div>
+		
+								</form>
+							</div>
+						</div>
+						<!-- Personal Information / End -->
+					</div>
+
+
+          
+				</div>
+			</div>
+		</div>
+		
+
+
+		<!-- Content / End -->
+		<simple-notifications></simple-notifications>

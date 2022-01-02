@@ -1,0 +1,382 @@
+<!-- Page Heading
+		================================================== -->
+		<div class="page-heading">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-10 offset-md-1">
+						<h1 class="page-heading__title">Roster <span class="highlight">V2</span></h1>
+						<ol class="page-heading__breadcrumb breadcrumb">
+							<li class="breadcrumb-item"><a href="_soccer_index.html">Home</a></li>
+							<li class="breadcrumb-item"><a href="_soccer_team-overview.html">Team</a></li>
+							<li class="breadcrumb-item active" aria-current="page">Roster V2</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Page Heading / End -->
+		
+		
+		<!-- Team Pages Filter -->
+		<nav class="content-filter" >
+			<div class="container">
+				<a (click)="toogle()"></a>
+				<ul class="content-filter__list">
+					<li class="content-filter__item "><a routerLink="/views/team-overview/{{token}}" class="content-filter__link"><small>The Team</small>Overview</a></li>
+					<li class="content-filter__item content-filter__item--active"><a routerLink="/views/team-roster/{{token}}" class="content-filter__link"><small>The Team</small>Roster</a></li>
+					<li class="content-filter__item "><a routerLink="/views/team-results/{{token}}" class="content-filter__link"><small>The Team</small>Match Results</a></li>
+					</ul>
+			</div>
+		</nav>
+		<!-- Team Pages Filter / End -->
+		
+		<!-- Content
+		================================================== -->
+		<div class="site-content" *ngIf="myTeam != undefined">
+			<div class="container">
+				<div class="card card--has-table">
+					<div class="card__header">
+						<h4>Titulares</h4>
+					</div>
+				</div>	
+				<!-- Team Roster - Card Compact -->
+				<div class="team-roster team-roster--card-compact js-team-roster--card-compact row" *ngIf="myTeam != undefined">
+		
+					<div class="col-lg-4" *ngFor="let tit of myTeam.titulares">
+						<!-- Player Card # -->
+						<div class="team-roster__item card">
+							<div class="card__content">
+		
+								<div class="team-roster__content-wrapper" style="background-image: url('{{ tit.player.photo }}');background-size: cover;background-repeat: no-repeat;">
+		
+									<!-- Player Photo -->
+									<figure class="team-roster__player-img" >
+										
+									</figure>
+									<!-- Player Photo / End-->
+		
+									<!-- Player Name -->
+									<div class="team-roster__player-info">
+										<h3 class="team-roster__player-name">
+											<span class="team-roster__player-first-name">{{ tit.player.firstName }}</span>
+											<span class="team-roster__player-last-name">{{ tit.player.lastName }}</span>
+										</h3>
+									</div>
+									<!-- Player Name / End -->
+		
+									<!-- Player Details -->
+									<div class="team-roster__player-details card">
+		
+										<!-- Player Details Body -->
+										<div class="team-roster__player-details-body">
+		
+											<div class="team-roster__player-details-excerpt">
+											{{ tit.description }}
+											</div>
+		
+											<!-- Progress: Shot Accuracy -->
+											<div class="progress-stats progress-stats--top-labels">
+												<div class="progress__label">Shot Accuracy</div>
+												<div class="progress">
+													<div class="progress__bar progress__bar--success progress__bar-width-{{ truncIt(tit.shooting) }}" role="progressbar" aria-valuenow="96" aria-valuemin="0" aria-valuemax="100"></div>
+												</div>
+												<div class="progress__number">{{ tit.shooting }}%</div>
+											</div>
+											<!-- Progress: Shot Accuracy / End -->
+											<!-- Progress: Pass Accuracy -->
+											<div class="progress-stats progress-stats--top-labels">
+												<div class="progress__label">Pass Accuracy</div>
+												<div class="progress">
+													<div class="progress__bar progress__bar--success progress__bar-width-{{ truncIt(tit.passing) }}" role="progressbar" aria-valuenow="74" aria-valuemin="0" aria-valuemax="100"></div>
+												</div>
+												<div class="progress__number">{{ tit.passing }}%</div>
+											</div>
+											<!-- Progress: Pass Accuracy / End -->
+											<!-- Progress: Performance -->
+											<div class="progress-stats progress-stats--top-labels">
+												<div class="progress__label">Physical</div>
+												<div class="progress">
+													<div class="progress__bar progress__bar--success progress__bar-width-{{ truncIt(tit.physical) }}" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+												</div>
+												<div class="progress__number">{{ tit.physical }}%</div>
+											</div>
+											<!-- Progress: Performance / End -->
+											<!-- Progress: Performance -->
+											<div class="progress-stats progress-stats--top-labels">
+												<div class="progress__label">Dribble</div>
+												<div class="progress">
+													<div class="progress__bar progress__bar--success progress__bar-width-{{ truncIt(tit.dribbling) }}" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+												</div>
+												<div class="progress__number">{{ tit.dribbling }}%</div>
+											</div>
+											<!-- Progress: Performance / End -->
+											<!-- Progress: Performance -->
+											<div class="progress-stats progress-stats--top-labels">
+												<div class="progress__label">Defend</div>
+												<div class="progress">
+													<div class="progress__bar progress__bar--success progress__bar-width-{{ truncIt(tit.defending) }}" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+												</div>
+												<div class="progress__number">{{ tit.defending }}%</div>
+											</div>
+											<!-- Progress: Performance / End -->
+											<!-- Progress: Performance -->
+											<div class="progress-stats progress-stats--top-labels">
+												<div class="progress__label">Pace</div>
+												<div class="progress">
+													<div class="progress__bar progress__bar--success progress__bar-width-{{ truncIt(tit.pace) }}" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+												</div>
+												<div class="progress__number">{{ tit.pace }}%</div>
+											</div>
+											<!-- Progress: Performance / End 
+		
+											<footer class="team-roster__player-details-footer">
+												<a href="_soccer_player-bio.html" class="btn btn-sm btn-block btn-primary-inverse">Read Full Bio</a>
+												<a href="#" class="btn btn-sm btn-single-icon btn-facebook"><i class="fab fa-facebook"></i></a>
+												<a href="#" class="btn btn-sm btn-single-icon btn-twitter"><i class="fab fa-twitter"></i></a>
+											</footer>
+											-->
+										</div>
+										<!-- Player Details Body / End -->
+		
+										<!-- Player Meta Info -->
+										<aside class="team-roster__meta">
+		
+											<div class="team-roster__meta-item team-roster__meta-item--lg">
+												<div class="team-roster__meta-value">{{ tit.goals?.length || '0' }}</div>
+												<div class="team-roster__meta-label">Goals</div>
+											</div>
+											<div class="team-roster__meta-item ">
+												<div class="team-roster__meta-value">{{ tit.matches?.length || '0' }}</div>
+												<div class="team-roster__meta-label">Games</div>
+											</div>
+											<div class="team-roster__meta-item ">
+												<div class="team-roster__meta-value">{{ tit.role }}</div>
+												<div class="team-roster__meta-label">Position</div>
+											</div>
+										</aside>
+										<!-- Player Meta Info / End -->
+		
+									</div>
+									<!-- Player Details / End -->
+		
+									<!-- Player Squad Number -->
+									<div class="team-roster__player-number">{{ tit.dossart }}</div>
+									<!-- Player Squad Number / End -->
+		
+								</div>
+							</div>
+						</div>
+						<!-- Player Card # / End -->
+					</div>
+		
+				</div>
+				<!-- Team Roster - Card Compact / End -->
+
+				<div class="card card--has-table">
+					<div class="card__header">
+						<h4>Substitutes</h4>
+					</div>
+				</div>	
+				<!-- Team Roster - Card Compact -->
+				<div class="team-roster team-roster--card-compact js-team-roster--card-compact row" *ngIf="myTeam != undefined">
+		
+					<div class="col-lg-4" *ngFor="let sub of myTeam.substitutes">
+						<!-- Player Card # -->
+						<div class="team-roster__item card">
+							<div class="card__content">
+		
+								<div class="team-roster__content-wrapper" style="background-image: url('{{ sub.player.photo }}');background-size: cover;background-repeat: no-repeat;">
+		
+									<!-- Player Photo -->
+									<figure class="team-roster__player-img">
+									</figure>
+									<!-- Player Photo / End-->
+		
+									<!-- Player Name -->
+									<div class="team-roster__player-info">
+										<h3 class="team-roster__player-name">
+											<span class="team-roster__player-first-name">{{ sub.player.firstName }}</span>
+											<span class="team-roster__player-last-name">{{ sub.player.lastName }}</span>
+										</h3>
+									</div>
+									<!-- Player Name / End -->
+		
+									<!-- Player Details -->
+									<div class="team-roster__player-details card">
+		
+										<!-- Player Details Body -->
+										<div class="team-roster__player-details-body">
+		
+											<div class="team-roster__player-details-excerpt">
+											{{ sub.description }}
+											</div>
+		
+											<!-- Progress: Shot Accuracy -->
+											<div class="progress-stats progress-stats--top-labels">
+												<div class="progress__label">Shot Accuracy</div>
+												<div class="progress">
+													<div class="progress__bar progress__bar--success progress__bar-width-{{ truncIt(sub.shooting) }}" role="progressbar" aria-valuenow="96" aria-valuemin="0" aria-valuemax="100"></div>
+												</div>
+												<div class="progress__number">{{ sub.shooting }}%</div>
+											</div>
+											<!-- Progress: Shot Accuracy / End -->
+											<!-- Progress: Pass Accuracy -->
+											<div class="progress-stats progress-stats--top-labels">
+												<div class="progress__label">Pass Accuracy</div>
+												<div class="progress">
+													<div class="progress__bar progress__bar--success progress__bar-width-{{ truncIt(sub.passing) }}" role="progressbar" aria-valuenow="74" aria-valuemin="0" aria-valuemax="100"></div>
+												</div>
+												<div class="progress__number">{{ sub.passing }}%</div>
+											</div>
+											<!-- Progress: Pass Accuracy / End -->
+											<!-- Progress: Performance -->
+											<div class="progress-stats progress-stats--top-labels">
+												<div class="progress__label">Physical</div>
+												<div class="progress">
+													<div class="progress__bar progress__bar--success progress__bar-width-{{ truncIt(sub.physical) }}" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+												</div>
+												<div class="progress__number">{{ sub.physical }}%</div>
+											</div>
+											<!-- Progress: Performance / End -->
+											<!-- Progress: Performance -->
+											<div class="progress-stats progress-stats--top-labels">
+												<div class="progress__label">Dribble</div>
+												<div class="progress">
+													<div class="progress__bar progress__bar--success progress__bar-width-{{ truncIt(sub.dribbling) }}" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+												</div>
+												<div class="progress__number">{{ sub.dribbling }}%</div>
+											</div>
+											<!-- Progress: Performance / End -->
+											<!-- Progress: Performance -->
+											<div class="progress-stats progress-stats--top-labels">
+												<div class="progress__label">Defend</div>
+												<div class="progress">
+													<div class="progress__bar progress__bar--success progress__bar-width-{{ truncIt(sub.defending) }}" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+												</div>
+												<div class="progress__number">{{ sub.defending }}%</div>
+											</div>
+											<!-- Progress: Performance / End -->
+											<!-- Progress: Performance -->
+											<div class="progress-stats progress-stats--top-labels">
+												<div class="progress__label">Pace</div>
+												<div class="progress">
+													<div class="progress__bar progress__bar--success progress__bar-width-{{ truncIt(sub.pace) }}" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+												</div>
+												<div class="progress__number">{{ sub.pace }}%</div>
+											</div>
+											<!-- Progress: Performance / End 
+		
+											<footer class="team-roster__player-details-footer">
+												<a href="_soccer_player-bio.html" class="btn btn-sm btn-block btn-primary-inverse">Read Full Bio</a>
+												<a href="#" class="btn btn-sm btn-single-icon btn-facebook"><i class="fab fa-facebook"></i></a>
+												<a href="#" class="btn btn-sm btn-single-icon btn-twitter"><i class="fab fa-twitter"></i></a>
+											</footer>
+											-->
+										</div>
+										<!-- Player Details Body / End -->
+		
+										<!-- Player Meta Info -->
+										<aside class="team-roster__meta">
+		
+											<div class="team-roster__meta-item team-roster__meta-item--lg">
+												<div class="team-roster__meta-value">{{ sub.goals?.length || '0' }}</div>
+												<div class="team-roster__meta-label">Goals</div>
+											</div>
+											<div class="team-roster__meta-item ">
+												<div class="team-roster__meta-value">{{ sub.matches?.length || '0' }}</div>
+												<div class="team-roster__meta-label">Games</div>
+											</div>
+											<div class="team-roster__meta-item ">
+												<div class="team-roster__meta-value">{{ sub.role }}</div>
+												<div class="team-roster__meta-label">Position</div>
+											</div>
+										</aside>
+										<!-- Player Meta Info / End -->
+		
+									</div>
+									<!-- Player Details / End -->
+		
+									<!-- Player Squad Number -->
+									<div class="team-roster__player-number">{{ sub.dossart }}</div>
+									<!-- Player Squad Number / End -->
+		
+								</div>
+							</div>
+						</div>
+						<!-- Player Card # / End -->
+					</div>
+		
+				</div>
+				<!-- Team Roster - Card Compact / End -->
+		
+				<!-- Team Roster: Table -->
+				<div class="card card--has-table">
+					<div class="card__header">
+						<h4>Complete Roster</h4>
+					</div>
+					<div class="card__content">
+						<div class="table-responsive">
+							<table class="table table--lg team-roster-table">
+								<thead>
+									<tr>
+										<th class="team-roster-table__number">NBR</th>
+										<th class="team-roster-table__position">Pos</th>
+										<th class="team-roster-table__name">Player Name</th>
+										<th class="team-roster-table__age">Age</th>
+										<th class="team-roster-table__height">Height</th>
+										<th class="team-roster-table__weight">Weight</th>
+										<th class="team-roster-table__goals">Goals</th>
+										<th class="team-roster-table__card-y">Y.CRDS</th>
+										<th class="team-roster-table__card-r">R.CRDS</th>
+									</tr>
+								</thead>
+								<tbody>
+		
+									<tr *ngFor="let tit of myTeam.titulares">
+										<td class="team-roster-table__number">{{ tit.dossart }}</td>
+										<td class="team-roster-table__position">{{ tit.role }}</td>
+										<td class="team-roster-table__name">{{ tit.player.firstName }} {{ tit.player.lastName }}</td>
+										<td class="team-roster-table__age">{{ tit.age }}</td>
+										<td class="team-roster-table__height">{{ tit.height }}</td>
+										<td class="team-roster-table__weight">{{ tit.weight }} lbs</td>
+										<td class="team-roster-table__goals">{{ tit.goals.length || '0' }}</td>
+										<td class="team-roster-table__card-y">{{ tit.yellowCards.length || '0' }}</td>
+										<td class="team-roster-table__card-r">{{ tit.redCards.length || '0' }}</td>
+									</tr>
+									<tr *ngFor="let sub of myTeam.substitutes">
+										<td class="team-roster-table__number">{{ sub.dossart }}</td>
+										<td class="team-roster-table__position">{{ sub.role }}</td>
+										<td class="team-roster-table__name">{{ sub.player.firstName }} {{ sub.player.lastName }}</td>
+										<td class="team-roster-table__age">{{ sub.age }}</td>
+										<td class="team-roster-table__height">{{ sub.height }}</td>
+										<td class="team-roster-table__weight">{{ sub.weight }} lbs</td>
+										<td class="team-roster-table__goals">{{ sub.goals.length || '0' }}</td>
+										<td class="team-roster-table__card-y">{{ sub.yellowCards.length || '0' }}</td>
+										<td class="team-roster-table__card-r">{{ sub.redCards.length || '0' }}</td>
+										<td class="team-roster-table__card-r"><i class="icon-svg icon-substitution"></i></td>
+									</tr>
+									
+		
+									<tr>
+										<td class="team-roster-table__number" colspan="2">Team Captain</td>
+										<td class="team-roster-table__name" *ngIf="Cap != undefined">{{ Cap.player.firstName }} {{ Cap.player.lastName }}</td>
+										<td class="team-roster-table__age" *ngIf="Cap != undefined">{{ Cap.age }}</td>
+										<td class="team-roster-table__height">-</td>
+										<td class="team-roster-table__weight">-</td>
+										<td class="team-roster-table__goals">-</td>
+										<td class="team-roster-table__card-y">-</td>
+										<td class="team-roster-table__card-r">-</td>
+		
+									</tr>
+		
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<!-- Team Roster: Table / End -->
+		
+			</div>
+		</div>
+		
+		<!-- Content / End -->

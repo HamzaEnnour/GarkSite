@@ -1,0 +1,836 @@
+<!-- Page Heading
+		================================================== -->
+		<div class="page-heading">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-10 offset-md-1">
+						<h1 class="page-heading__title">Tournament</h1>
+						<ol class="page-heading__breadcrumb breadcrumb">
+							<li class="breadcrumb-item"><a href="/home">Home</a></li>
+							<li class="breadcrumb-item active" aria-current="page">Tournament</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Page Heading / End -->
+		
+				<!-- Event Pages Nav -->
+		<nav class="content-filter">
+			<div class="container">
+				<a (click)="toogle()" class="content-filter__toggle"></a>
+				<ul class="content-filter__list">
+						<li class="content-filter__item "><a routerLink="/views/challenge-overview/{{token}}" class="content-filter__link"><small>Challenge</small>Overview</a></li>
+					<li class="content-filter__item content-filter__item--active"><a routerLink="/views/challenge-ranking/{{token}}" class="content-filter__link"><small>Challenge</small>Ranking</a></li>
+	</ul>
+			</div>
+		</nav>
+		<!-- Event Pages Nav / End -->
+		<!-- Content
+		================================================== -->
+		<div class="site-content" *ngIf="myChallenge != undefined">
+			<div class="container">
+		
+				<!-- Tournament Brackets -->
+				<div class="card card--clean">
+					<header class="card__header">
+						<h4>Tournament Bracket ( Team Of {{ myChallenge.maxNumberOfTeams }} )</h4>
+					</header>
+					<div class="card__content">
+		
+						<!-- Brackets of 16 -->
+						<div class="tournament-bracket" *ngIf="myChallenge.maxNumberOfTeams == 16">
+						<div class="tournament-bracket__round">
+								<h6 class="tournament-bracket__round-title d-block d-lg-none d-xl-none">Round</h6>
+								<ul class="tournament-bracket__list">
+									<li class="tournament-bracket__item" *ngFor="let matches of myChallenge.matches.slice(0,8)">
+										<div class="tournament-bracket__match" tabindex="0" *ngIf="matches.state =='Finished' " >
+											<table class="tournament-bracket__table">
+												<tbody class="tournament-bracket__content">
+													<tr class="{{ GuessWinner('team1',matches) }}" (click)="GoToMatch(matches._id)">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+																<img src="{{ CheckTeamImage(matches.team1.image) }}" alt="">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ matches.team1.name }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ matches.team1.categorie }}</span>
+															</div>
+														</td>
+														<td class="tournament-bracket__score">
+															<span class="tournament-bracket__number">{{ GoalsNumber(matches.team1._id,matches) }}</span>
+														</td>
+													</tr>
+													<tr class="{{ GuessWinner('team2',matches) }}" (click)="GoToMatch(matches._id)" >
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+																<img src="{{ CheckTeamImage(matches.team2.image) }}" alt="">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ matches.team2.name }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ matches.team2.categorie }}</span>
+															</div>
+														</td>
+														<td class="tournament-bracket__score">
+															<span class="tournament-bracket__number">{{ GoalsNumber(matches.team2._id,matches) }}</span>
+														</td>
+													</tr>
+                          
+												</tbody>
+											</table>
+										</div>
+										<div class="tournament-bracket__match" tabindex="0" *ngIf="matches.state =='Ongoing' " >
+											<table class="tournament-bracket__table">
+												<tbody class="tournament-bracket__content">
+													<tr class="tournament-bracket__team">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+																<img src="{{ CheckTeamImage(matches.team1.image) }}" alt="">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ matches.team1.name }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ matches.team1.categorie }}</span>
+															</div>
+														</td>
+														
+													</tr>
+													<tr class="tournament-bracket__team">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+																<img src="{{ CheckTeamImage(matches.team2.image) }}" alt="">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ matches.team2.name }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ matches.team2.categorie }}</span>
+															</div>
+														</td>
+														
+													</tr>
+                          
+												</tbody>
+											</table>
+										</div>
+										<div class="tournament-bracket__match" tabindex="0" *ngIf="matches.state =='Pending' " >
+											<table class="tournament-bracket__table">
+												<tbody class="tournament-bracket__content">
+													<tr class="tournament-bracket__team">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ ConvertFullDate(matches.start_date) }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ matches.type }}</span>
+															</div>
+														</td>
+														
+													</tr>
+													<tr class="tournament-bracket__team">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+															<h6 class="tournament-bracket__team-name text-truncate">{{ ConvertFullDate(matches.start_date) }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ matches.type }}</span>
+															</div>
+														</td>
+														
+													</tr>
+                          
+												</tbody>
+											</table>
+										</div>
+									</li>
+
+								</ul>
+							</div>
+							<div class="tournament-bracket__round">
+								<h6 class="tournament-bracket__round-title d-block d-lg-none d-xl-none">Quarterfinals</h6>
+								<ul class="tournament-bracket__list">
+								<li class="tournament-bracket__item" *ngFor="let matches of myChallenge.matches.slice(8,12)">
+										<div class="tournament-bracket__match" tabindex="0" *ngIf="matches.state =='Finished' " >
+											<table class="tournament-bracket__table">
+												<tbody class="tournament-bracket__content">
+													<tr class="{{ GuessWinner('team1',matches) }}" (click)="GoToMatch(matches._id)">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+																<img src="{{ CheckTeamImage(matches.team1.image) }}" alt="">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ matches.team1.name }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ matches.team1.categorie }}</span>
+															</div>
+														</td>
+														<td class="tournament-bracket__score">
+															<span class="tournament-bracket__number">{{ GoalsNumber(matches.team1._id,matches) }}</span>
+														</td>
+													</tr>
+													<tr class="{{ GuessWinner('team2',matches) }}" (click)="GoToMatch(matches._id)">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+																<img src="{{ CheckTeamImage(matches.team2.image) }}" alt="">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ matches.team2.name }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ matches.team2.categorie }}</span>
+															</div>
+														</td>
+														<td class="tournament-bracket__score">
+															<span class="tournament-bracket__number">{{ GoalsNumber(matches.team2._id,matches) }}</span>
+														</td>
+													</tr>
+                          
+												</tbody>
+											</table>
+										</div>
+										<div class="tournament-bracket__match" tabindex="0" *ngIf="matches.state =='Ongoing' " >
+											<table class="tournament-bracket__table">
+												<tbody class="tournament-bracket__content">
+													<tr class="tournament-bracket__team">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+																<img src="{{ CheckTeamImage(matches.team1.image) }}" alt="">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ matches.team1.name }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ matches.team1.categorie }}</span>
+															</div>
+														</td>
+														
+													</tr>
+													<tr class="tournament-bracket__team">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+																<img src="{{ CheckTeamImage(matches.team2.image) }}" alt="">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ matches.team2.name }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ matches.team2.categorie }}</span>
+															</div>
+														</td>
+														
+													</tr>
+                          
+												</tbody>
+											</table>
+										</div>
+										<div class="tournament-bracket__match" tabindex="0" *ngIf="matches.state =='Pending' " >
+											<table class="tournament-bracket__table">
+												<tbody class="tournament-bracket__content">
+													<tr class="tournament-bracket__team">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ ConvertFullDate(matches.start_date) }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ matches.type }}</span>
+															</div>
+														</td>
+														
+													</tr>
+													<tr class="tournament-bracket__team">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+															<h6 class="tournament-bracket__team-name text-truncate">{{ ConvertFullDate(matches.start_date) }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ matches.type }}</span>
+															</div>
+														</td>
+														
+													</tr>
+                          
+												</tbody>
+											</table>
+										</div>
+									</li>
+								</ul>
+							</div>
+							<div class="tournament-bracket__round">
+								<h6 class="tournament-bracket__round-title d-block d-lg-none d-xl-none">Semifinals</h6>
+								<ul class="tournament-bracket__list">
+									<li class="tournament-bracket__item" *ngFor="let matches of myChallenge.matches.slice(12,14)">
+										<div class="tournament-bracket__match" tabindex="0" *ngIf="matches.state =='Finished' " >
+											<table class="tournament-bracket__table">
+												<tbody class="tournament-bracket__content">
+													<tr class="{{ GuessWinner('team1',matches) }}" (click)="GoToMatch(matches._id)">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+																<img src="{{ CheckTeamImage(matches.team1.image) }}" alt="">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ matches.team1.name }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ matches.team1.categorie }}</span>
+															</div>
+														</td>
+														<td class="tournament-bracket__score">
+															<span class="tournament-bracket__number">{{ GoalsNumber(matches.team1._id,matches) }}</span>
+														</td>
+													</tr>
+													<tr class="{{ GuessWinner('team2',matches) }}" (click)="GoToMatch(matches._id)">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+																<img src="{{ CheckTeamImage(matches.team2.image) }}" alt="">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ matches.team2.name }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ matches.team2.categorie }}</span>
+															</div>
+														</td>
+														<td class="tournament-bracket__score">
+															<span class="tournament-bracket__number">{{ GoalsNumber(matches.team1._id,matches) }}</span>
+														</td>
+													</tr>
+                          
+												</tbody>
+											</table>
+										</div>
+										<div class="tournament-bracket__match" tabindex="0" *ngIf="matches.state =='Ongoing' " >
+											<table class="tournament-bracket__table">
+												<tbody class="tournament-bracket__content">
+													<tr class="tournament-bracket__team">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+																<img src="{{ CheckTeamImage(matches.team1.image) }}" alt="">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ matches.team1.name }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ matches.team1.categorie }}</span>
+															</div>
+														</td>
+														
+													</tr>
+													<tr class="tournament-bracket__team">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+																<img src="{{ CheckTeamImage(matches.team2.image) }}" alt="">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ matches.team2.name }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ matches.team2.categorie }}</span>
+															</div>
+														</td>
+														
+													</tr>
+                          
+												</tbody>
+											</table>
+										</div>
+										<div class="tournament-bracket__match" tabindex="0" *ngIf="matches.state =='Pending' " >
+											<table class="tournament-bracket__table">
+												<tbody class="tournament-bracket__content">
+													<tr class="tournament-bracket__team">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ ConvertFullDate(matches.start_date) }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ matches.type }}</span>
+															</div>
+														</td>
+														
+													</tr>
+													<tr class="tournament-bracket__team">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+															<h6 class="tournament-bracket__team-name text-truncate">{{ ConvertFullDate(matches.start_date) }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ matches.type }}</span>
+															</div>
+														</td>
+														
+													</tr>
+                          
+												</tbody>
+											</table>
+										</div>
+									</li>
+								</ul>
+							</div>
+							<div class="tournament-bracket__round">
+								<h6 class="tournament-bracket__round-title d-block d-lg-none d-xl-none">Finals</h6>
+								<ul class="tournament-bracket__list">
+									<li class="tournament-bracket__item" >
+										<div class="tournament-bracket__match" tabindex="0" *ngIf="myChallenge.matches[14].state == 'Finished'">
+											<table class="tournament-bracket__table">
+												<tbody class="tournament-bracket__content">
+													<tr class="{{ GuessWinner('team1',myChallenge.matches[14]) }}" (click)="GoToMatch(myChallenge.matches[14]._id)">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+																<img src="{{ CheckTeamImage(myChallenge.matches[14].team1.image) }}" alt="">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ myChallenge.matches[14].team1.name }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ myChallenge.matches[14].team1.categorie }}</span>
+															</div>
+														</td>
+														<td class="tournament-bracket__score">
+															<span class="tournament-bracket__number">{{ GoalsNumber(myChallenge.matches[14].team1._id,myChallenge.matches[14]) }}</span>
+														</td>
+													</tr>
+													<tr class="{{ GuessWinner('team2',myChallenge.matches[14]) }}" (click)="GoToMatch(myChallenge.matches[14]._id)">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+																<img src="{{ CheckTeamImage(myChallenge.matches[14].team2.image) }}" alt="">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ myChallenge.matches[14].team2.name }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ myChallenge.matches[14].team2.categorie }}</span>
+															</div>
+														</td>
+														<td class="tournament-bracket__score">
+															<span class="tournament-bracket__number">{{ GoalsNumber(myChallenge.matches[14].team2._id,myChallenge.matches[14]) }}</span>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<div class="tournament-bracket__match" tabindex="0" *ngIf="myChallenge.matches[14].state == 'Ongoing'">
+											<table class="tournament-bracket__table">
+												<tbody class="tournament-bracket__content">
+													<tr class="tournament-bracket__team">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+																<img src="{{ CheckTeamImage(myChallenge.matches[14].team1.image) }}" alt="">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ myChallenge.matches[14].team1.name }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ myChallenge.matches[14].team1.categorie }}</span>
+															</div>
+														</td>
+														
+													</tr>
+													<tr class="tournament-bracket__team">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+																<img src="{{ CheckTeamImage(myChallenge.matches[14].team2.image) }}" alt="">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ myChallenge.matches[14].team2.name }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ myChallenge.matches[14].team2.categorie }}</span>
+															</div>
+														</td>
+														
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<div class="tournament-bracket__match" tabindex="0" *ngIf="myChallenge.matches[14].state == 'Pending'">
+											<table class="tournament-bracket__table">
+												<tbody class="tournament-bracket__content">
+													<tr class="tournament-bracket__team">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ ConvertFullDate(myChallenge.matches[14].start_date) }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ myChallenge.matches[14].type }}</span>
+															</div>
+														</td>
+														
+													</tr>
+													<tr class="tournament-bracket__team">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ ConvertFullDate(myChallenge.matches[14].start_date) }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ myChallenge.matches[14].type }}</span>
+															</div>
+														</td>
+														
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										
+									</li>
+								</ul>
+							</div>
+							<div class="tournament-bracket__round">
+								<h6 class="tournament-bracket__round-title d-block d-lg-none d-xl-none">Champion</h6>
+								<ul class="tournament-bracket__list">
+									<li class="tournament-bracket__item">
+										<div class="tournament-bracket__match" tabindex="0">
+											<table class="tournament-bracket__table">
+												<tbody class="tournament-bracket__content">
+													<tr class="tournament-bracket__team  tournament-bracket__team--champ"  >
+													<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+																<img *ngIf=" myChallenge.winner != null" src="{{ myChallenge.winner.image }}" alt="">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate" *ngIf=" myChallenge.winner != null">{{ myChallenge.winner.name }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate" *ngIf=" myChallenge.winner != null">{{ myChallenge.winner.categorie }}</span>
+															</div>
+														</td>
+														<td class="tournament-bracket__score">
+															<div class="tournament-bracket__number tournament-bracket__champ-icon">
+																<svg role="img" class="df-icon df-icon--trophy">
+																	<use xlink:href="assets/images/icons.svg#trophy"/>
+																</svg>
+															</div>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</li>
+								</ul>
+							</div>
+		
+						</div>
+						<!-- Brackets of 16 -->
+
+						<!-- Brackets of 8 -->
+						<div class="tournament-bracket" *ngIf="myChallenge.maxNumberOfTeams == 8">
+		
+							<div class="tournament-bracket__round">
+								<h6 class="tournament-bracket__round-title d-block d-lg-none d-xl-none">Quarterfinals</h6>
+								<ul class="tournament-bracket__list">
+									<li class="tournament-bracket__item" *ngFor="let matches of myChallenge.matches.slice(0,4)">
+										<div class="tournament-bracket__match" tabindex="0" *ngIf="matches.state =='Finished' " >
+											<table class="tournament-bracket__table">
+												<tbody class="tournament-bracket__content">
+													<tr class="{{ GuessWinner('team1',matches) }}" (click)="GoToMatch(matches._id)">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+																<img src="{{ CheckTeamImage(matches.team1.image) }}" alt="">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ matches.team1.name }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ matches.team1.categorie }}</span>
+															</div>
+														</td>
+														<td class="tournament-bracket__score">
+															<span class="tournament-bracket__number">{{ GoalsNumber(matches.team1._id,matches) }}</span>
+														</td>
+													</tr>
+													<tr class="{{ GuessWinner('team2',matches) }}" (click)="GoToMatch(matches._id)">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+																<img src="{{ CheckTeamImage(matches.team2.image) }}" alt="">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ matches.team2.name }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ matches.team2.categorie }}</span>
+															</div>
+														</td>
+														<td class="tournament-bracket__score">
+															<span class="tournament-bracket__number">{{ GoalsNumber(matches.team2._id,matches) }}</span>
+														</td>
+													</tr>
+                          
+												</tbody>
+											</table>
+										</div>
+										<div class="tournament-bracket__match" tabindex="0" *ngIf="matches.state =='Ongoing' " >
+											<table class="tournament-bracket__table">
+												<tbody class="tournament-bracket__content">
+													<tr class="tournament-bracket__team">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+																<img src="{{ CheckTeamImage(matches.team1.image) }}" alt="">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ matches.team1.name }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ matches.team1.categorie }}</span>
+															</div>
+														</td>
+														
+													</tr>
+													<tr class="tournament-bracket__team">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+																<img src="{{ CheckTeamImage(matches.team2.image) }}" alt="">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ matches.team2.name }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ matches.team2.categorie }}</span>
+															</div>
+														</td>
+														
+													</tr>
+                          
+												</tbody>
+											</table>
+										</div>
+										<div class="tournament-bracket__match" tabindex="0" *ngIf="matches.state =='Pending' " >
+											<table class="tournament-bracket__table">
+												<tbody class="tournament-bracket__content">
+													<tr class="tournament-bracket__team">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ ConvertFullDate(matches.start_date) }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ matches.type }}</span>
+															</div>
+														</td>
+														
+													</tr>
+													<tr class="tournament-bracket__team">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+															<h6 class="tournament-bracket__team-name text-truncate">{{ ConvertFullDate(matches.start_date) }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ matches.type }}</span>
+															</div>
+														</td>
+														
+													</tr>
+                          
+												</tbody>
+											</table>
+										</div>
+									</li>
+
+								</ul>
+							</div>
+							<div class="tournament-bracket__round">
+								<h6 class="tournament-bracket__round-title d-block d-lg-none d-xl-none">Semifinals</h6>
+								<ul class="tournament-bracket__list">
+									<li class="tournament-bracket__item" *ngFor="let matches of myChallenge.matches.slice(4,6)">
+										<div class="tournament-bracket__match" tabindex="0" *ngIf="matches.state =='Finished' " >
+											<table class="tournament-bracket__table">
+												<tbody class="tournament-bracket__content">
+													<tr class="{{ GuessWinner('team1',matches) }}" (click)="GoToMatch(matches._id)">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+																<img src="{{ CheckTeamImage(matches.team1.image) }}" alt="">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ matches.team1.name }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ matches.team1.categorie }}</span>
+															</div>
+														</td>
+														<td class="tournament-bracket__score">
+															<span class="tournament-bracket__number">{{ GoalsNumber(matches.team1._id,matches) }}</span>
+														</td>
+													</tr>
+													<tr class="{{ GuessWinner('team2',matches) }}" (click)="GoToMatch(matches._id)">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+																<img src="{{ CheckTeamImage(matches.team2.image) }}" alt="">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ matches.team2.name }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ matches.team2.categorie }}</span>
+															</div>
+														</td>
+														<td class="tournament-bracket__score">
+															<span class="tournament-bracket__number">{{ GoalsNumber(matches.team2._id,matches) }}</span>
+														</td>
+													</tr>
+                          
+												</tbody>
+											</table>
+										</div>
+										<div class="tournament-bracket__match" tabindex="0" *ngIf="matches.state =='Ongoing' " >
+											<table class="tournament-bracket__table">
+												<tbody class="tournament-bracket__content">
+													<tr class="tournament-bracket__team">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+																<img src="{{ CheckTeamImage(matches.team1.image) }}" alt="">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ matches.team1.name }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ matches.team1.categorie }}</span>
+															</div>
+														</td>
+														
+													</tr>
+													<tr class="tournament-bracket__team">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+																<img src="{{ CheckTeamImage(matches.team2.image) }}" alt="">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ matches.team2.name }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ matches.team2.categorie }}</span>
+															</div>
+														</td>
+														
+													</tr>
+                          
+												</tbody>
+											</table>
+										</div>
+										<div class="tournament-bracket__match" tabindex="0" *ngIf="matches.state =='Pending' " >
+											<table class="tournament-bracket__table">
+												<tbody class="tournament-bracket__content">
+													<tr class="tournament-bracket__team">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ ConvertFullDate(matches.start_date) }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ matches.type }}</span>
+															</div>
+														</td>
+														
+													</tr>
+													<tr class="tournament-bracket__team">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+															<h6 class="tournament-bracket__team-name text-truncate">{{ ConvertFullDate(matches.start_date) }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ matches.type }}</span>
+															</div>
+														</td>
+														
+													</tr>
+                          
+												</tbody>
+											</table>
+										</div>
+									</li>
+								
+								</ul>
+							</div>
+							<div class="tournament-bracket__round">
+								<h6 class="tournament-bracket__round-title d-block d-lg-none d-xl-none">Finals</h6>
+								<ul class="tournament-bracket__list">
+									<li class="tournament-bracket__item" >
+										<div class="tournament-bracket__match" tabindex="0" *ngIf="myChallenge.matches[6].state == 'Finished'">
+											<table class="tournament-bracket__table">
+												<tbody class="tournament-bracket__content">
+													<tr class="{{ GuessWinner('team1',myChallenge.matches[6]) }}" (click)="GoToMatch(myChallenge.matches[6]._id)">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+																<img src="{{ CheckTeamImage(myChallenge.matches[6].team1.image) }}" alt="">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ myChallenge.matches[6].team1.name }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ myChallenge.matches[6].team1.categorie }}</span>
+															</div>
+														</td>
+														<td class="tournament-bracket__score">
+															<span class="tournament-bracket__number">{{ GoalsNumber(myChallenge.matches[6].team1._id,myChallenge.matches[6]) }}</span>
+														</td>
+													</tr>
+													<tr class="{{ GuessWinner('team2',myChallenge.matches[6]) }}" (click)="GoToMatch(myChallenge.matches[6]._id)">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+																<img src="{{ CheckTeamImage(myChallenge.matches[6].team2.image) }}" alt="">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ myChallenge.matches[6].team2.name }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ myChallenge.matches[6].team2.categorie }}</span>
+															</div>
+														</td>
+														<td class="tournament-bracket__score">
+															<span class="tournament-bracket__number">{{ GoalsNumber(myChallenge.matches[6].team2._id,myChallenge.matches[6]) }}</span>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<div class="tournament-bracket__match" tabindex="0" *ngIf="myChallenge.matches[6].state == 'Ongoing'">
+											<table class="tournament-bracket__table">
+												<tbody class="tournament-bracket__content">
+													<tr class="tournament-bracket__team">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+																<img src="{{ CheckTeamImage(myChallenge.matches[6].team1.image) }}" alt="">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ myChallenge.matches[6].team1.name }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ myChallenge.matches[6].team1.categorie }}</span>
+															</div>
+														</td>
+														
+													</tr>
+													<tr class="tournament-bracket__team">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+																<img src="{{ CheckTeamImage(myChallenge.matches[6].team2.image) }}" alt="">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ myChallenge.matches[6].team2.name }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ myChallenge.matches[6].team2.categorie }}</span>
+															</div>
+														</td>
+														
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<div class="tournament-bracket__match" tabindex="0" *ngIf="myChallenge.matches[6].state == 'Pending'">
+											<table class="tournament-bracket__table">
+												<tbody class="tournament-bracket__content">
+													<tr class="tournament-bracket__team">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ ConvertFullDate(myChallenge.matches[6].start_date) }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ myChallenge.matches[6].type }}</span>
+															</div>
+														</td>
+														
+													</tr>
+													<tr class="tournament-bracket__team">
+														<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate">{{ ConvertFullDate(myChallenge.matches[6].start_date) }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate">{{ myChallenge.matches[6].type }}</span>
+															</div>
+														</td>
+														
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										
+									</li>
+								</ul>
+							</div>
+							<div class="tournament-bracket__round">
+								<h6 class="tournament-bracket__round-title d-block d-lg-none d-xl-none">Champion</h6>
+								<ul class="tournament-bracket__list">
+									<li class="tournament-bracket__item">
+										<div class="tournament-bracket__match" tabindex="0">
+											<table class="tournament-bracket__table">
+												<tbody class="tournament-bracket__content">
+													<tr class="tournament-bracket__team  tournament-bracket__team--champ"  >
+													<td class="tournament-bracket__inner">
+															<figure class="tournament-bracket__team-thumb">
+																<img *ngIf=" myChallenge.winner != null" src="{{ myChallenge.winner.image }}" alt="">
+															</figure>
+															<div class="tournament-bracket__team-info text-truncate">
+																<h6 class="tournament-bracket__team-name text-truncate" *ngIf=" myChallenge.winner != null">{{ myChallenge.winner.name }}</h6>
+																<span class="tournament-bracket__team-desc text-truncate" *ngIf=" myChallenge.winner != null">{{ myChallenge.winner.categorie }}</span>
+															</div>
+														</td>
+														<td class="tournament-bracket__score">
+															<div class="tournament-bracket__number tournament-bracket__champ-icon">
+																<svg role="img" class="df-icon df-icon--trophy">
+																	<use xlink:href="assets/images/icons.svg#trophy"/>
+																</svg>
+															</div>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</li>
+								</ul>
+							</div>
+		
+						</div>
+						<!-- Brackets of 8 -->
+		
+					</div>
+				</div>
+				<!-- Tournament Brackets / End -->
+		
+			</div>
+		</div>
+		
+		<!-- Content / End -->

@@ -1,0 +1,285 @@
+<!-- Page Heading
+		================================================== -->
+		<div class="page-heading">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-10 offset-md-1">
+						<h1 class="page-heading__title">Over<span class="highlight">View</span></h1>
+						<ol class="page-heading__breadcrumb breadcrumb">
+							<li class="breadcrumb-item"><a href="_soccer_index.html">Home</a></li>
+							<li class="breadcrumb-item"><a href="_soccer_team-overview.html">Challenge</a></li>
+							<li class="breadcrumb-item active" aria-current="page">Overview</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Page Heading / End -->
+		
+		
+		<!-- Team Pages Filter -->
+		<nav class="content-filter">
+			<div class="container">
+				<a (click)="toogle()" class="content-filter__toggle"></a>
+				<ul class="content-filter__list">
+									<li class="content-filter__item content-filter__item--active"><a routerLink="/views/challenge-overview/{{token}}" class="content-filter__link"><small>Challenge</small>Overview</a></li>
+					        <li class="content-filter__item "><a routerLink="/views/challenge-ranking/{{token}}" class="content-filter__link"><small>Challenge</small>Ranking</a></li>
+        </ul>
+			</div>
+		</nav>
+		<!-- Team Pages Filter / End -->
+		
+		<!-- Content
+		================================================== -->
+		<div class="site-content" *ngIf="myChallenge != undefined">
+			<div class="container">
+		
+				<div class="row">
+		
+					<!-- Content -->
+					<div class="content col-lg-8">
+		
+						<!--  Teams  -->
+						<div class="widget card card--no-paddings widget--sidebar widget-event-scheduled">
+							<div class="widget__title card__header card__header--has-btn">
+								<h4>Teams</h4>
+               <a  class="btn btn-default btn-outline btn-xs card-header__button" style="cursor : default">{{myChallenge.teams.length}}/{{myChallenge.maxNumberOfTeams}} Teams</a>
+							</div>
+            <div class="text-center"  *ngIf="myChallenge.teams.length == 0">
+					  No Teams Found
+                      </div>
+			</div>
+              <div class="team-roster team-roster--card-compact js-team-roster--card-compact row">
+              <!-- style="background-color: white;border-radius: 20%" -->
+                      
+					  <div class="widget-game-result__team widget-game-result__team--first col-lg-3 pb-4"  *ngFor="let teams of myChallenge.teams">
+                      
+						  <figure class="widget-game-result__team-logo">
+													<a href="/views/team-overview/{{teams._id}}"><img src="{{ CheckTeamImage(teams.image) }}" style="height:60px;width:70px;border:none;border-radius:20%;" alt="{{ teams.name }}"></a>
+												</figure>
+												<div class="widget-game-result__team-info">
+													<h5 class="widget-game-result__team-desc">{{ teams.name }}</h5>
+													<div class="widget-game-result__team-desc">{{ teams.categorie }}</div>
+												</div>
+
+
+					</div>
+              </div>
+						
+						
+						<!--  Teams-End  -->
+		
+					
+		
+						<div class="row">
+		
+							<div class="col-md-6">
+		
+								
+		
+							</div>
+							<div class="col-md-6">
+		
+								
+		
+							</div>
+						</div>
+            <!--  Matches  -->
+						<div class="widget card card--no-paddings widget--sidebar widget-event-scheduled">
+							<div class="widget__title card__header">
+								<h4>Matches</h4>
+							</div>
+							<div class="widget__content card__content">
+								<ul class="alc-event-scheduled">
+						
+									<!-- Game #0 -->
+									<li class="alc-event-scheduled__item" *ngFor="let myMatch of myChallenge.matches">
+									<div *ngIf="myMatch.state =='Ongoing' ">
+										<div class="alc-event-scheduled__header justify-content-center">
+											<div class="alc-event-scheduled__title">{{ ConvertDate(myMatch.start_date) }}</div>
+										</div>
+										<div class="alc-event-scheduled__content">
+											<div class="alc-event-scheduled__team">
+												<figure class="alc-event-scheduled__img">
+													<img src="{{ CheckTeamImage(myMatch.team1.image) }}" style="height:60px;width:70px;border:none;border-radius:20%;" alt="{{ myMatch.team1.name }}">
+												</figure>
+												<div class="alc-event-scheduled__details">
+													<h4 class="alc-event-scheduled__team-name">{{ myMatch.team1.name }}</h4>
+													<div class="alc-event-scheduled__team-info">{{ myMatch.team1.categorie }}</div>
+												</div>
+											</div>
+											<div class="alc-event-scheduled__team">
+												<figure class="alc-event-scheduled__img">
+													<img src="{{ CheckTeamImage(myMatch.team2.image) }}" style="height:60px;width:70px;border:none;border-radius:20%;" alt="{{ myMatch.team2.name }}">
+												</figure>
+												<div class="alc-event-scheduled__details">
+													<h4 class="alc-event-scheduled__team-name">{{ myMatch.team2.name }}</h4>
+													<div class="alc-event-scheduled__team-info">{{ myMatch.team2.categorie }}</div>
+												</div>
+											</div>
+											<div class="alc-event-scheduled__divider">vs</div>
+										</div>
+									</div>
+									<div *ngIf="myMatch.state =='Finished'  " (click)= "GoToMatch(myMatch._id)">
+										<div class="alc-event-scheduled__header justify-content-center">
+											<div class="alc-event-scheduled__title">{{ ConvertDate(myMatch.start_date) }}</div>
+										</div>
+										<div class="alc-event-scheduled__content">
+											<div class="alc-event-scheduled__team">
+												<figure class="alc-event-scheduled__img">
+													<img src="{{ CheckTeamImage(myMatch.team1.image) }}" style="height:60px;width:70px;border:none;border-radius:20%;" alt="{{ myMatch.team1.name }}">
+												</figure>
+												<div class="alc-event-scheduled__details">
+													<h4 class="alc-event-scheduled__team-name">{{ myMatch.team1.name }}</h4>
+													<div class="alc-event-scheduled__team-info">{{ myMatch.team1.categorie }}</div>
+												</div>
+											</div>
+											<div class="alc-event-scheduled__team">
+												<figure class="alc-event-scheduled__img">
+													<img src="{{ CheckTeamImage(myMatch.team2.image) }}" style="height:60px;width:70px;border:none;border-radius:20%;" alt="{{ myMatch.team2.name }}">
+												</figure>
+												<div class="alc-event-scheduled__details">
+													<h4 class="alc-event-scheduled__team-name">{{ myMatch.team2.name }}</h4>
+													<div class="alc-event-scheduled__team-info">{{ myMatch.team2.categorie }}</div>
+												</div>
+											</div>
+											<div class="alc-event-scheduled__divider" style="width:50px !important">{{ GoalsNumber(myMatch.team1._id,myMatch) }}  vs  {{ GoalsNumber(myMatch.team2._id,myMatch) }}</div>
+										</div>
+									</div>
+									<div *ngIf="myMatch.state == 'Pending' ">
+										<div class="alc-event-scheduled__header justify-content-center">
+											<div class="alc-event-scheduled__title">{{ ConvertDate(myMatch.start_date) }}</div>
+										</div>
+										<div class="alc-event-scheduled__content">
+											<div class="alc-event-scheduled__team">
+												<figure class="alc-event-scheduled__img">
+													<img style="background-color: #D0EBF4;height:60px;width:70px;border:none;border-radius:20%;">
+												</figure>
+												<div class="alc-event-scheduled__details">
+													<h4 class="alc-event-scheduled__team-name"></h4>
+													<div class="alc-event-scheduled__team-info"></div>
+												</div>
+											</div>
+											<div class="alc-event-scheduled__team">
+												<figure class="alc-event-scheduled__img">
+													<img style="background-color: #D0EBF4;height:60px;width:70px;border:none;border-radius:20%;" >
+												</figure>
+												<div class="alc-event-scheduled__details">
+													<h4 class="alc-event-scheduled__team-name"></h4>
+													<div class="alc-event-scheduled__team-info"></div>
+												</div>
+											</div>
+											<div class="alc-event-scheduled__divider">vs</div>
+										</div>
+									</div>	
+									</li>
+									<!-- Game #0 / End -->
+									
+						
+								</ul>
+							</div>
+						</div>
+						<!--  Matches-End  -->
+
+
+						
+						
+					</div>
+					<!-- Content / End -->
+		
+					<!-- Sidebar -->
+					<div class="sidebar col-lg-4">
+		
+						<!-- Widget: Standings -->
+													<!-- Widget: Awards -->
+								<aside class="widget card widget--sidebar widget-awards">
+									<div class="widget__title card__header">
+										<h4>Challenge Information</h4>
+									</div>
+									<div class="widget__content card__content">
+										<div class="awards awards--slider">
+								
+											<div class="awards__item">
+												<figure class="awards__figure awards__figure--space">
+													<img src="{{ CheckImage(myChallenge.image) }}" style="height:70%;width:70%" alt="">
+												</figure>
+												<div class="awards__desc">
+													<h5 class="awards__name">{{ myChallenge.name }}</h5>
+													<div class="awards__date">{{ myChallenge.categorie }}</div>
+												
+												</div>
+											</div>
+										</div>
+
+										<ul class="alc-event-info list-unstyled">
+									<li class="alc-event-info__item">
+										<span class="alc-event-info__icon">
+											<i class="icon-svg icon-calendar"></i>
+										</span>
+										<span class="alc-event-info__value">{{ ConvertFullDate(myChallenge.date_created) }}</span>
+									</li>
+								
+									
+								</ul>
+									</div>
+								</aside>
+								<!-- Widget: Awards / End -->
+						<!-- Widget: Standings / End -->
+
+            <!-- Widget: Featured Player -->
+						<aside class="widget card widget--sidebar widget-player widget-player--soccer" *ngIf="myChallenge.manOfTheTournement != null">
+							<div class="widget__title card__header">
+								<h4>man Of The Tournement</h4>
+							</div>
+						
+							<div class="widget__content card__content">
+								<div class="widget-player__ribbon">
+									<div class="fas fa-star"></div>
+								</div>
+								<figure class="widget-player__photo">
+								<!--
+									<img src="{{ myMatch.manOfTheMatch.photo }}" style="height:15vw;width:15vw" alt="Frank Stevens">
+								-->	
+								</figure>
+								
+								<header class="widget-player__header clearfix">
+									<div class="widget-player__number"></div>
+									<h4 class="widget-player__name" >
+										<span class="widget-player__first-name">{{ myChallenge.manOfTheTournement.lastName }}</span>
+										<span class="widget-player__last-name">{{ myChallenge.manOfTheTournement.firstName }}</span>
+									</h4>
+								</header>
+								<div class="widget-player__content">
+									<div class="widget-player__content-inner">
+										<div class="widget-player__stat widget-player__goals">
+											<div class="widget-player__stat-number" *ngIf="mymanOfTheTournement.goals !=undefined">{{ mymanOfTheTournement.goals?.length || '0' }}</div>
+											<h6 class="widget-player__stat-label">Goals</h6>
+										</div>
+										<div class="widget-player__stat widget-player__shots">
+											<div class="widget-player__stat-number" *ngIf="mymanOfTheTournement.yellowCards !=undefined">{{ mymanOfTheTournement.yellowCards?.length || '0' }}</div>
+											<h6 class="widget-player__stat-label">Yellow Cards</h6>
+										</div>
+										<div class="widget-player__stat widget-player__ast">
+											<div class="widget-player__stat-number" *ngIf="mymanOfTheTournement.redCards !=undefined">{{ mymanOfTheTournement.redCards?.length || '0' }}</div>
+											<h6 class="widget-player__stat-label">Red Cards</h6>
+										</div>
+										<div class="widget-player__stat widget-player__played">
+											<div class="widget-player__stat-number" *ngIf="mymanOfTheTournement.matches !=undefined">{{ mymanOfTheTournement.matches?.length || '0' }}</div>
+											<h6 class="widget-player__stat-label">Played</h6>
+										</div>
+									</div>
+								</div>
+							</div>
+						
+							
+						
+						</aside>
+						<!-- Widget: Featured Player / End -->
+
+					</div>
+					<!-- Sidebar / End -->
+				</div>
+			</div>
+		</div>
+		
+		<!-- Content / End -->

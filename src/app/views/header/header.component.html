@@ -1,0 +1,279 @@
+	<!-- Header
+		================================================== -->
+		
+		<!-- Header Mobile -->
+		<div class="header-mobile clearfix" id="header-mobile" >
+			<div class="header-mobile__logo">
+				<a href="app">
+				<img src="assets/imgs/Gark-Logo.png"  alt="gark" class="header-mobile__logo-img">
+				</a>
+			</div>
+			<div class="header-mobile__inner">
+				<a id="header-mobile__toggle" (click)="OnModelOpened()" class="burger-menu-icon"><span class="burger-menu-icon__line"></span></a>
+				<!--
+				<button mat-icon-button  matBadge="7" matBadgeColor="warn" [matBadgeHidden]="false" matBadgeSize="small" [matMenuTriggerFor]="menu" id="header-mobile__notif-icon" >
+  									<mat-icon class="notifIcon">notifications_none</mat-icon>
+									</button>
+									<mat-menu #menu="matMenu">
+  									<div class="card" >
+  									<div class="card-body">
+    									<h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+    									<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    									<a href="#" class="card-link">ACCEPT</a>
+    									<a href="#" class="card-link" style="color:red !important">DECLINE</a>
+  									</div>
+									</div>
+									
+									<div class="card" >
+  									<div class="card-body">
+    									<h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+    									<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  									</div>
+									</div>
+									
+									</mat-menu>
+								-->
+			</div>
+		</div>
+		
+		<!-- Header Desktop -->
+		<header class="header header--layout-1" >
+		
+			<!-- Header Top Bar
+			<div class="header__top-bar clearfix">
+				<div class="container">
+					<div class="header__top-bar-inner">
+						
+						<ul class="nav-account">
+							<li class="nav-account__item"><a href="#" data-toggle="modal" data-target="#modal-login-register-tabs">Your Account</a></li>
+							<li class="nav-account__item nav-account__item--wishlist"><a href="_soccer_shop-wishlist.html">Wishlist <span class="highlight">8</span></a></li>
+							<li class="nav-account__item"><a href="#">Currency: <span class="highlight">USD</span></a>
+								<ul class="main-nav__sub">
+									<li><a href="#">USD</a></li>
+									<li><a href="#">EUR</a></li>
+									<li><a href="#">GBP</a></li>
+								</ul>
+							</li>
+							<li class="nav-account__item"><a href="#">Language: <span class="highlight">EN</span></a>
+								<ul class="main-nav__sub">
+									<li><a href="#">English</a></li>
+									<li><a href="#">Spanish</a></li>
+									<li><a href="#">French</a></li>
+									<li><a href="#">German</a></li>
+								</ul>
+							</li>
+							<li class="nav-account__item nav-account__item--logout"><a href="_soccer_shop-login.html">Logout</a></li>
+						</ul>
+						
+					</div>
+				</div>
+			</div> -->
+			<!-- Header Top Bar / End -->
+		
+			<!-- Header Secondary -->
+			<div class="header__secondary">
+				<div class="container">
+					<!-- Header Search Form 
+					<div class="header-search-form">
+						<form action="#" id="mobile-search-form" class="search-form">
+							<input type="text" class="form-control header-mobile__search-control" value="" placeholder="Enter your search here...">
+							<button type="submit" class="header-mobile__search-submit"><i class="fas fa-search"></i></button>
+						</form>
+					</div>-->
+					<!-- Header Search Form / End -->
+					<ul class="info-block info-block--header">
+						<li class="info-block__item info-block__item--contact-primary">
+							<svg role="img" class="df-icon df-icon--whistle">
+								<use xlink:href="assets/images/icons-soccer.svg#whistle"/>
+							</svg>
+							<h6 class="info-block__heading">Join Our Team!</h6>
+							<a class="info-block__link" href="mailto:tryouts@gark.com">tryouts@gark.com</a>
+						</li>
+						<li class="info-block__item info-block__item--contact-secondary">
+							<svg role="img" class="df-icon df-icon--soccer-ball">
+								<use xlink:href="assets/images/icons-soccer.svg#soccer-ball"/>
+							</svg>
+							<h6 class="info-block__heading">Contact Us</h6>
+							<a class="info-block__link" href="mailto:info@gark.com">info@gark.com</a>
+						</li>
+						<!--
+							<li class="info-block__item info-block__item--contact-secondary" *ngIf="mySkills!=undefined">
+								<mat-menu #appMenu="matMenu" yPosition="above">
+									    <button mat-menu-item (click)="GoToProfile()" >
+    										<mat-icon>account_circle</mat-icon>
+    										<span>Account</span>
+  										</button>
+										<button mat-menu-item (click)="LogOut()" >
+    										<mat-icon>power_settings_new</mat-icon>
+    										<span>Log Out</span>
+  										</button>
+									</mat-menu>
+
+									<button mat-icon-button style="background-image: url('{{ CheckUserImage(mySkills.player.photo) }}');background-size: cover;background-repeat: no-repeat;" [matMenuTriggerFor]="appMenu">
+  									<mat-icon style="font-size:0px">settings</mat-icon>
+									</button>
+								</li>
+						-->
+					
+					</ul>
+				</div>
+			</div>
+			<!-- Header Secondary / End -->
+		
+			<!-- Header Primary -->
+			<div class="header__primary">
+				<div class="container">
+					<div class="header__primary-inner">
+		
+						<!-- Header Logo -->
+						<div class="header-logo" style="right: 20%;width:39%">
+							<a href="app">
+							<img src="assets/imgs/home/Gark-Logo.png" id="logo" alt="Gark" class="header-logo__img">
+							<img src="assets/imgs/Gark-Label.png" style="padding-top:10%;right:4%" id="logo" alt="Gark" class="header-logo__img">
+							</a>
+						</div>
+						<!-- Header Logo / End -->
+		
+						<!-- Main Navigation -->
+						<nav class="main-nav clearfix">
+							<ul class="main-nav__list"  #insideElement><div class="header-mobile__logo"><span (click)="OnModelRemoved()" class="main-nav__back"></span>
+				<a href="views/home"><img src="assets/imgs/Gark-Logo.png" alt="Alchemists" class="header-mobile__logo-img"></a>
+			</div>
+			
+								<li class=""><a href="/">Home</a></li>
+								<!--
+								<li class=""><a href="views/home">Teams</a></li>
+								<li class=""><a href="views/home">Challenges</a></li>
+								<li class=""><a href="views/home">Fields</a></li>
+								-->
+								
+								
+								
+								
+							<!--<li class="main-nav__item--shopping-cart"><a href="#" class="info-block__link-wrapper">
+								<div class="df-icon-stack df-icon-stack--bag">
+									<svg role="img" class="df-icon df-icon--bag">
+										<use xlink:href="assets/images/icons-basket.svg#bag"></use>
+									</svg>
+									<svg role="img" class="df-icon df-icon--bag-handle">
+										<use xlink:href="assets/images/icons-basket.svg#bag-handle"></use>
+									</svg>
+								</div>
+								<h6 class="info-block__heading">Your Bag (8 items)</h6>
+								<span class="info-block__cart-sum">$256,30</span>
+							</a></li>
+							<li class="nav-account__item"><a href="#" data-toggle="modal" data-target="#modal-login-register-tabs">Your Account</a></li><li class="nav-account__item nav-account__item--wishlist"><a href="_soccer_shop-wishlist.html">Wishlist <span class="highlight">8</span></a></li><li class="nav-account__item has-children"><span class="main-nav__toggle"></span><a href="#">Currency: <span class="highlight">USD</span></a>
+								<ul class="main-nav__sub">
+									<li><a href="#">USD</a></li>
+									<li><a href="#">EUR</a></li>
+									<li><a href="#">GBP</a></li>
+								</ul>
+							</li>
+							<li class="nav-account__item has-children"><span class="main-nav__toggle"></span><a href="#">Language: <span class="highlight">EN</span></a>
+								<ul class="main-nav__sub">
+									<li><a href="#">English</a></li>
+									<li><a href="#">Spanish</a></li>
+									<li><a href="#">French</a></li>
+									<li><a href="#">German</a></li>
+								</ul>
+							</li> -->
+							<li class="nav-account__item nav-account__item--logout"><a (click)="GoToProfile()">Your Account</a></li>
+							<li class="nav-account__item nav-account__item--logout"><a (click)="LogOut()">Logout</a></li>
+							<li class="info-block__item info-block__item--contact-primary">
+							<svg role="img" class="df-icon df-icon--whistle">
+								<use xlink:href="assets/images/icons-soccer.svg#whistle"></use>
+							</svg>
+							<h6 class="info-block__heading">Join Our Team!</h6>
+							<a class="info-block__link" href="mailto:tryouts@gark.com">tryouts@gark.com</a>
+						</li><li class="info-block__item info-block__item--contact-secondary">
+							<svg role="img" class="df-icon df-icon--soccer-ball">
+								<use xlink:href="assets/images/icons-soccer.svg#soccer-ball"></use>
+							</svg>
+							<h6 class="info-block__heading">Contact Us</h6>
+							<a class="info-block__link" href="mailto:info@gark.com">info@gark.com</a>
+						</li>
+						<li class="main-nav__item--social-links">
+									<a href="" class="social-links__link" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Facebook"><i class="fab fa-facebook"></i></a>
+								
+									<a href="" class="social-links__link" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Twitter"><i class="fab fa-twitter"></i></a>
+								
+									<a href="" class="social-links__link" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Instagram"><i class="fab fa-instagram"></i></a>
+									
+								</li>
+								</ul>
+		
+							<!-- Social Links -->
+							<ul class="social-links social-links--inline social-links--main-nav">
+								<!--<li class="social-links__item">
+									<a href="#" class="social-links__link" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Facebook"><i class="fab fa-facebook"></i></a>
+								</li>
+								<li class="social-links__item">
+									<a href="#" class="social-links__link" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Twitter"><i class="fab fa-twitter"></i></a>
+								</li>
+								<li class="social-links__item">
+									<a href="#" class="social-links__link" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Instagram"><i class="fab fa-instagram"></i></a>
+								</li>
+							-->
+								<li class="social-links__item">
+								<!--<button mat-icon-button *ngIf="mySkills!=undefined"  matBadge="{{ mySkills.notifications.length || 0 }}" matBadgeColor="warn" [matBadgeHidden]="false" matBadgeSize="small" id="notification"  [matMenuTriggerFor]="menu" >
+  									<mat-icon>notifications_none</mat-icon>
+									</button>
+									<mat-menu #menu="matMenu" *ngIf="mySkills!=undefined">
+									<div *ngFor="let notif of mySkills.notifications"> 
+									<mat-card class="example-card" >
+  									<mat-card-header>
+    									<div mat-card-avatar class="example-header-image" style="background-image: url('{{ notif.from.photo }}');background-size: cover;"></div>
+    									<mat-card-title>{{ notif.from.firstName }} {{ notif.from.lastName }}</mat-card-title>
+    									
+  									</mat-card-header>
+  									
+  									<mat-card-content>
+									  <br>
+    									<p>
+      									{{ notif.notificationType }}
+    									</p>
+  									</mat-card-content>
+  									<mat-card-actions>
+    									<button mat-button *ngIf="isWidgetCard(notif)" style="color: rgba(0,229,107,1)">ACCEPT</button>
+    									<button mat-button *ngIf="isWidgetCard(notif)" style="color: red">DECLINE</button>
+  									</mat-card-actions>
+									</mat-card>
+									<br>
+									</div>
+								
+									</mat-menu>
+								-->
+								</li>
+								<li class="social-links__item" *ngIf="mySkills!=undefined">
+								<mat-menu #appMenu="matMenu" yPosition="above">
+									    <button mat-menu-item (click)="GoToProfile()" >
+    										<mat-icon>account_circle</mat-icon>
+    										<span>Account</span>
+  										</button>
+										<button mat-menu-item (click)="LogOut()" >
+    										<mat-icon>power_settings_new</mat-icon>
+    										<span>Log Out</span>
+  										</button>
+									</mat-menu>
+
+									<button mat-icon-button style="background-image: url('{{ CheckUserImage(mySkills.player.photo) }}');background-size: cover;background-repeat: no-repeat;" [matMenuTriggerFor]="appMenu">
+  									<mat-icon style="font-size:0px">settings</mat-icon>
+									</button>
+								</li>
+							</ul>
+							<!-- Social Links / End -->
+		
+							<!-- Pushy Panel Toggle 
+							<a href="#" class="pushy-panel__toggle">
+								<span class="pushy-panel__line"></span>
+							</a>-->
+							<!-- Pushy Panel Toggle / Eng -->
+						</nav>
+						<!-- Main Navigation / End -->
+					</div>
+				</div>
+			</div>
+			<!-- Header Primary / End -->
+		
+		</header>
+		<!-- Header / End -->

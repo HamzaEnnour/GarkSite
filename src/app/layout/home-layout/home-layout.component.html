@@ -1,0 +1,112 @@
+<div [ngClass]="{'landing-page': true,'show-mobile-menu': showMobileMenu}">
+    <div class="mobile-menu" (click)="$event.stopPropagation()">
+        <a href="/" class="logo-mobile">
+        </a>
+        <ul class="navbar-nav">
+            <li class="nav-item" id="navmobile"><a  class="textmobile"  href="/">Home</a></li>
+            <li class="nav-item" id="navmobile" [hidden]="!auth.isAuthenticated"  (click)="goLogin()"><a class="textmobile"   >Tournois</a></li>
+            <li class="nav-item" id="navmobile" [hidden]="!auth.isAuthenticated"  (click)="goLogin()"><a class="textmobile"  >Equipes</a></li>
+            <li class="nav-item" id="navmobile" [hidden]="!auth.isAuthenticated"  (click)="goLogin()"><a class="textmobile"  >Académie</a></li>
+            <li class="nav-item" id="navmobile" [hidden]="!auth.isAuthenticated"  (click)="goLogin()"><a class="textmobile"  >Terrains</a></li>
+            <li class="nav-item" id="navmobile"><a class="textmobile"  (click)="scrollTo('#footer')" >Contact us</a></li>
+            <li class="nav-item" id="navmobile" [hidden]="auth.isAuthenticated"  (click)="goLogin()"><a class="textmobile"   >Login</a></li>
+        
+            <li class="nav-item">
+                <div class="separator"></div>
+            </li>
+
+        </ul>
+    </div>
+
+    <div class="main-container" style="background-color:black !important">
+        <div class="sectionOne">
+        <div class="landing-page-nav">
+            <nav>
+                <div class="container d-flex align-items-center justify-content-between">
+                    <a class="navbar-logo pull-left" href="/" >
+                        <span style="display: flex;" *ngIf="!isSmallMobile"  class="pointer">
+                            <img   style="margin-left: 10px;margin-top: -10px;height: 40px !important" src="/assets/imgs/site/GARK-LOGO@2x.png" alt="gark logo">
+                            <img   style=" margin-top: 10px;height: 20px !important" src="/assets/imgs/Gark-Label.png" alt="gark label">
+                        </span>
+                        <span style="display: flex;" *ngIf="isSmallMobile"  class="pointer">
+                          <img height="40px"  style="margin-left: 10px;margin-top: -10px;height: 40px !important" src="/assets/imgs/site/GARK-LOGO@2x.png" alt="gark logo">
+                          <img height="20px"  style=" margin-top: 10px;height: 20px !important" src="/assets/imgs/Gark-Label.png" alt="gark label">
+                         </span>
+                    </a>
+                    <ul class="navbar-nav d-none d-lg-flex flex-row">
+                    <li class="nav-item"><a  class="textlink"  href="/">Home</a></li>
+                    <!-- (click)="scrollTo('#tournois')" -->
+                        <li class="nav-item" [hidden]="!auth.isAuthenticated"  (click)="goLogin()"><a class="textlink" >Tournois</a></li>
+                        <li class="nav-item" [hidden]="!auth.isAuthenticated"  (click)="goLogin()"><a class="textlink" >Equipes</a></li>
+                        <li class="nav-item" [hidden]="!auth.isAuthenticated"  (click)="goLogin()"><a class="textlink" >Académie</a></li>
+                        <li class="nav-item" [hidden]="!auth.isAuthenticated" (click)="goLogin()"><a class="textlink" >Terrains</a></li>
+                        <li class="nav-item"><a class="textlink" (click)="scrollTo('#footer')">Contact us</a>
+                        <li class="nav-item" [hidden]="auth.isAuthenticated"  (click)="goLogin()"><a class="textlink22" >Login</a>
+                        </li>
+                    </ul>
+                    <span class="mobile-menu-button" (click)="showMobileMenu=!showMobileMenu; $event.stopPropagation()">
+                        <i class="simple-icon-menu"></i>
+                    </span>
+                </div>
+            </nav>
+        </div>
+
+        <div class="section home" id="gark">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 d-block d-md-none">
+              
+                            <img alt="mobile hero"  class="mobile-hero" style="width: calc(100%);"
+                                src="/assets/imgs/site/ID3000.png" />
+
+                  
+                    </div>
+
+                    <div class="col-12 col-xl-5 col-lg-5 col-md-6 texting">
+                        <div style="margin: auto 0;"></div>
+                        <div class="home-text" >
+                          
+                            <p class="mb-2" *ngIf="!isMobile" style="font-family: Eina01-BoldItalic ☞;font-style: italic;line-height: 1.6;word-spacing: 50px;">
+                            <img alt="gark"  style="width: calc(33%);" src="/assets/imgs/Gark-Label.png" />    MAKE  
+                            
+                           <span  style="color:rgba(0,229,107,1);"> FOOTBALL</span>
+                          BETTER
+                           </p>
+                            <p class="mb-2" *ngIf="isMobile" style="font-family: Eina01-BoldItalic ☞;font-style: italic;line-height: 1.6;">
+                            <img alt="gark"  style="width: calc(33%);" src="/assets/imgs/Gark-Label.png" />    MAKE  
+                            
+                           <span  style="color:rgba(0,229,107,1);"> FOOTBALL</span>
+                          BETTER
+                           </p>
+                        </div>
+                        <div class="home-subtext">
+                            <p class="mb-4" id="parag"  >
+                                GARK est une plateforme qui reprend les bases des systèmes de Gaming et des compétitions émergées dans le mini-football et fait que les amateurs vivent une expérience unique avec leur passion et se sentent comme des professionnels.
+                            </p>
+                        <div class="inline-block">
+                            <a ><img alt="gark" class="mr-2"  style="width: calc(26%);" class="app" src="/assets/imgs/site/apple.png" /> </a>
+                            <a ><img alt="gark"  style="width: calc(26%);" class="app" src="/assets/imgs/site/google.png" /> </a>
+                            <a ><img alt="gark"  style="width: calc(33%);" class="app" src="/assets/imgs/site/huawei.png" /> </a>
+                            </div>
+                        </div>
+                        <div style="margin: auto 0;"></div>
+                    </div>
+                    <div class="col-12 col-xl-7 col-lg-7 col-md-6 d-none d-md-block">
+                        <a style="position: relative;display: block;">
+                          <img alt="hero" class="img-responsive"   style="width: calc(100%);"
+                                src="/assets/imgs/site/ID3000.png" /> </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="content-container" id="home">
+
+            <router-outlet></router-outlet>
+
+
+
+        </div>
+    </div>
+</div>
+<app-footer-app></app-footer-app>

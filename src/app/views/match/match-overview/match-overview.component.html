@@ -1,0 +1,680 @@
+<!-- Event Header
+		================================================== -->
+		<div class="alc-event-header alc-event-header--layout-2">
+			<div class="alc-event-header__top">
+				<div class="container">
+					<h6 class="title">{{myMatch.type}}</h6>
+					<span class="subtitle">{{ ConvertDate(myMatch.start_date) }}</span>
+				</div>
+			</div>
+			<div class="alc-event-header__content">
+				<div class="container">
+					<div class="alc-event-header__content-inner">
+		
+						<!-- Competitors -->
+						<div class="alc-event-competitors">
+							<!-- Team #1 -->
+							<div class="{{ GuessWinner('team1') }}">
+								<div class="alc-event-team__logo-alt">
+									<div class="alc-event-team__logo-alt-inner">
+										<img src="{{ CheckTeamImage(myMatch.team1.image) }}" class="alc-event-team__logo-alt-img">
+									</div>
+								</div>
+								<div class="alc-event-team__details">
+									<h4 class="alc-event-team__name">{{myMatch.team1.name}}</h4>
+									<div class="alc-event-team__info">{{myMatch.team1.categorie}}</div>
+								</div>
+								<figure class="alc-event-team__logo">
+									<img src="{{ CheckTeamImage(myMatch.team1.image) }}" style="width:75px;height:50px"  alt="">
+								</figure>
+								<div class="alc-event-team__score-wrap">
+									<div class="alc-event-team__score">{{ GoalsNumber(myMatch.team1._id).length || '0' }}</div>
+								</div>
+							</div>
+							<!-- Team #1 / End
+							[ngClass]="{
+    										'alc-event-competitors__item alc-event-team alc-event-team--winner': myMatch.team2._id == myMatch.winner._id,
+    										'alc-event-competitors__item alc-event-team': myMatch.team2._id != myMatch.winner._id
+  										}"
+							
+							 -->
+									  
+							<!-- Team #2 -->
+							<div class="{{ GuessWinner('team2') }}">
+								<div class="alc-event-team__logo-alt alc-event-team__logo-alt--color-alt">
+									<div class="alc-event-team__logo-alt-inner">
+										<img src="{{ CheckTeamImage(myMatch.team2.image) }}" alt="" class="alc-event-team__logo-alt-img">
+									</div>
+								</div>
+								<div class="alc-event-team__details">
+									<h4 class="alc-event-team__name">{{myMatch.team2.name}}</h4>
+									<div class="alc-event-team__info">{{myMatch.team2.categorie}}</div>
+								</div>
+								<figure class="alc-event-team__logo">
+									<img src="{{ CheckTeamImage(myMatch.team2.image) }}" style="width:75px;height:50px" alt="">
+								</figure>
+								<div class="alc-event-team__score-wrap">
+									<div class="alc-event-team__score">{{ GoalsNumber(myMatch.team2._id).length || '0' }}</div>
+								</div>
+							</div>
+							<!-- Team #2 / End -->
+		
+							<div class="alc-event-competitors__divider"></div>
+		
+						</div>
+						<!-- Competitors / End -->
+		
+					</div>
+
+				</div>
+
+			</div>
+			<div class="alc-event-header__bottom">
+				<div class="container">
+					<div class="row">
+						<div class="col-6">
+							<!-- 1st Team Performances -->
+							<div class="alc-event-header-performances">
+ 
+								<span class="alc-event-header__performance" *ngFor="let goals of GetGoalsOfTeam('team1',myMatch.team1._id)" >{{ GoalsPlayer(goals.player).player.firstName }} ({{ goals.minutes }}’) <i class="icon-svg icon-soccer-ball"></i></span>
+								<span class="alc-event-header__performance" *ngFor="let goals of GetyellowCardsOfTeam('team1',myMatch.team1._id)" >{{ GoalsPlayer(goals.player).player.firstName }} ({{ goals.minutes }}’) <i class="icon-svg icon-soccer-ball"></i></span>
+								<span class="alc-event-header__performance" *ngFor="let goals of GetredCardsOfTeam('team1',myMatch.team1._id)" >{{ GoalsPlayer(goals.player).player.firstName }} ({{ goals.minutes }}’) <i class="icon-svg icon-soccer-ball"></i></span>
+							</div>
+							<!-- 1st Team Performances / End -->
+						</div>
+						<div class="col-6">
+							<!-- 2nd Team Performances -->
+							<div class="alc-event-header-performances">
+ 
+								<span class="alc-event-header__performance" *ngFor="let goals of GetGoalsOfTeam('team2',myMatch.team2._id)" >{{ GoalsPlayerTeam2(goals.player).player.firstName }} ({{ goals.minutes }}’) <i class="icon-svg icon-soccer-ball"></i></span>
+								<span class="alc-event-header__performance" *ngFor="let goals of GetyellowCardsOfTeam('team2',myMatch.team2._id)" >{{ GoalsPlayerTeam2(goals.player).player.firstName }} ({{ goals.minutes }}’) <i class="icon-svg icon-soccer-ball"></i></span>
+								<span class="alc-event-header__performance" *ngFor="let goals of GetredCardsOfTeam('team2',myMatch.team2._id)" >{{ GoalsPlayerTeam2(goals.player).player.firstName }} ({{ goals.minutes }}’) <i class="icon-svg icon-soccer-ball"></i></span>
+							</div>
+							<!-- 2nd Team Performances / End -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		
+		<!-- Event Pages Nav -->
+		<nav class="content-filter">
+			<div class="container">
+				<a  (click)="toogle()" class="content-filter__toggle"></a>
+				<ul class="content-filter__list">
+					<li class="content-filter__item content-filter__item--active"><a routerLink="/views/match-overview/{{token}}" class="content-filter__link"><small>Match</small>Overview</a></li>
+					<li class="content-filter__item "><a routerLink="/views/match-box-score/{{token}}" class="content-filter__link"><small>Match</small>Box Score</a></li>
+					<li class="content-filter__item "><a routerLink="/views/match-play-by-play/{{token}}" class="content-filter__link"><small>Match</small>Play-by-Play</a></li>
+				
+				</ul>
+			</div>
+		</nav>
+		<!-- Event Pages Nav / End -->
+		
+		<!-- Content
+		================================================== -->
+		<div class="site-content">
+			<div class="container">
+		
+				<!-- Timeline 
+				<div class="card">
+					<div class="card__header">
+						<h4>Game Timeline</h4>
+					</div>
+					<div class="card__content card__content--pattern-dotted">
+		
+						<div class="game-timeline-wrapper pt-4 pb-4">
+							<div class="game-timeline game-timeline--adaptive">
+		
+								<div class="game-timeline__event">
+									<div class="game-timeline__team-1">
+										<div class="game-timeline__team-shirt">
+											<i class="icon-svg icon-shirt"></i>
+										</div>
+									</div>
+									<div class="game-timeline__time">0’</div>
+									<div class="game-timeline__team-2">
+										<div class="game-timeline__team-shirt">
+											<i class="icon-svg icon-shirt-alt"></i>
+										</div>
+									</div>
+								</div>
+		
+								<div class="game-timeline__event game-timeline__event--22">
+									<div class="game-timeline__team-1">
+										<div class="game-timeline__event-info">
+											<div class="game-timeline__event-name">F. Stevens</div>
+											<div class="game-timeline__event-desc">Alchemists 1-0</div>
+										</div>
+										<i class="icon-svg icon-soccer-ball"></i>
+									</div>
+									<div class="game-timeline__time">22’</div>
+								</div>
+		
+								<div class="game-timeline__event game-timeline__event--36">
+									<div class="game-timeline__time">36’</div>
+									<div class="game-timeline__team-2">
+										<i class="icon-svg icon-yellow-card"></i>
+										<div class="game-timeline__event-info">
+											<div class="game-timeline__event-name">J. Griffin</div>
+										</div>
+									</div>
+								</div>
+		
+								<div class="game-timeline__event game-timeline__event--ht">
+									<div class="game-timeline__time">HT</div>
+									<div class="game-timeline__team-2">
+										<i class="icon-svg icon-substitution"></i>
+										<div class="game-timeline__event-info">
+											<div class="game-timeline__event-name">R. Valentine</div>
+											<div class="game-timeline__event-name">M. Jackson</div>
+										</div>
+									</div>
+								</div>
+		
+								<div class="game-timeline__event game-timeline__event--59">
+									<div class="game-timeline__team-1">
+										<div class="game-timeline__event-info">
+											<div class="game-timeline__event-name">B.Kingster</div>
+										</div>
+										<i class="icon-svg icon-red-card"></i>
+									</div>
+									<div class="game-timeline__time">59’</div>
+								</div>
+		
+								<div class="game-timeline__event game-timeline__event--68">
+									<div class="game-timeline__team-1">
+										<div class="game-timeline__event-info">
+											<div class="game-timeline__event-name">C. Grass (P)</div>
+											<div class="game-timeline__event-desc">Alchemists 2-0</div>
+										</div>
+										<i class="icon-svg icon-soccer-ball-penalty"></i>
+									</div>
+									<div class="game-timeline__time">68’</div>
+								</div>
+		
+								<div class="game-timeline__event game-timeline__event--84">
+									<div class="game-timeline__time">84’</div>
+									<div class="game-timeline__team-2">
+										<i class="icon-svg icon-yellow-card"></i>
+										<div class="game-timeline__event-info">
+											<div class="game-timeline__event-name">W. Christison</div>
+										</div>
+									</div>
+								</div>
+		
+								<div class="game-timeline__event game-timeline__event--ft">
+									<div class="game-timeline__time">FT</div>
+								</div>
+		
+							</div>
+						</div>
+		
+					</div>
+				</div>-->
+				<!-- Timeline / End -->
+		
+		
+				<div class="row">
+					<!-- Content -->
+					<div class="content col-lg-8">
+		
+						<!-- Game Scoreboard -->
+						<div class="card">
+							<header class="card__header alc-teams-legend">
+								<h4 class="alc-teams-legend__title">Match Statistics</h4>
+								<div class="alc-teams-legend__info">
+									<!-- Teams -->
+									<div class="alc-teams-legend__teams">
+						
+										<!-- Team #0 -->
+										<div class="alc-teams-legend__team">
+											<span class="alc-teams-legend__team-color alc-teams-legend__team-color--color-primary"></span>
+											<img src="{{CheckTeamImage(myMatch.team1.image)  }}" class="alc-teams-legend__team-logo" style="width:20px;height:20px" alt="The Alchemists">
+										</div>
+										<!-- Team #0 / End -->
+										<!-- Team #1 -->
+										<div class="alc-teams-legend__team">
+											<span class="alc-teams-legend__team-color alc-teams-legend__team-color--color-4"></span>
+											<img src="{{CheckTeamImage(myMatch.team2.image)}}" class="alc-teams-legend__team-logo" style="width:20px;height:20px" alt="Lucky Clovers">
+										</div>
+										<!-- Team #1 / End -->
+						
+									</div>
+									<!-- Teams / End 
+									
+									<a href="_soccer_event-team-stats.html" class="btn btn-default btn-outline btn-xs">Full Team Stats</a>
+									-->
+						
+								</div>
+							</header>
+							<div class="card__content">
+						
+								<!-- Game Result -->
+								<div class="game-result">
+									<section class="game-result__section">
+										<div class="game-result__content mb-0">
+											<div class="game-result__stats">
+												<div class="row">
+													<div class="col-12 col-md-6 order-md-2">
+														<div class="game-result__table-stats game-result__table-stats--soccer">
+															<table class="table table-wrap-bordered table-thead-color">
+																<thead>
+																	<tr>
+																		<th colspan="3">Main Statistics</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr>
+																		<td>{{ GoalsNumber(myMatch.team1._id).length || '0' }}</td>
+																		<td>Goals</td>
+																		<td>{{ GoalsNumber(myMatch.team2._id).length || '0' }}</td>
+																	</tr>
+																	<tr>
+																		<td>{{ YellowCardsNumber(myMatch.team1._id).length || '0' }}</td>
+																		<td>Yellow Cards</td>
+																		<td>{{ YellowCardsNumber(myMatch.team2._id).length || '0' }}</td>
+																	</tr>
+																	<tr>
+																		<td>{{ RedCardsNumber(myMatch.team1._id).length || '0' }}</td>
+																		<td>Red Cards</td>
+																		<td>{{ RedCardsNumber(myMatch.team2._id).length || '0' }}</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</div>
+													<div class="col-6 col-md-3 order-md-1 game-result__stats-team-1">
+													
+														<div class="row">
+															<div class="col-6">
+															<!--
+																<div class="circular circular--size-70">
+																	<div class="circular__bar" data-percent="84.5">
+																		<span class="circular__percents">84.5<small>%</small></span>
+																	</div>
+																	<span class="circular__label">Shot Accuracy</span>
+																</div>
+															-->	
+															</div>
+															<div class="col-6">
+															<!--
+																<div class="circular circular--size-70">
+																	<div class="circular__bar" data-percent="62.3">
+																		<span class="circular__percents">62.3<small>%</small></span>
+																	</div>
+																	<span class="circular__label">Pass Accuracy</span>
+																</div>
+															-->	
+															</div>
+																
+														</div>
+															
+														<div class="spacer"></div>
+						
+														<!-- Progress: Sho 
+														<div class="progress-stats">
+															<div class="progress__label">Sho</div>
+															<div class="progress">
+																<div class="progress__bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%; "></div>
+															</div>
+															<div class="progress__number">25</div>
+														</div>-->
+														<!-- Progress: Sho / End -->
+														<!-- Progress: Fou 
+														<div class="progress-stats">
+															<div class="progress__label">Fou</div>
+															<div class="progress">
+																<div class="progress__bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%; "></div>
+															</div>
+															<div class="progress__number">12</div>
+														</div>-->
+														<!-- Progress: Fou / End -->
+														<!-- Progress: OFF 
+														<div class="progress-stats">
+															<div class="progress__label">OFF</div>
+															<div class="progress">
+																<div class="progress__bar" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%; "></div>
+															</div>
+															<div class="progress__number">10</div>
+														</div>-->
+														<!-- Progress: OFF / End -->
+						
+													</div>
+													<div class="col-6 col-md-3 order-md-3 game-result__stats-team-2">
+						
+														<div class="row">
+															<div class="col-6">
+															<!--
+																<div class="circular circular--size-70">
+																	<div class="circular__bar" data-percent="84.5" data-bar-color="#9fe900">
+																		<span class="circular__percents">84.5<small>%</small></span>
+																	</div>
+																	<span class="circular__label">Shot Accuracy</span>
+																</div>
+																-->
+															</div>
+															<div class="col-6">
+															<!--
+																<div class="circular circular--size-70">
+																	<div class="circular__bar" data-percent="62.3" data-bar-color="#9fe900">
+																		<span class="circular__percents">62.3<small>%</small></span>
+																	</div>
+																	<span class="circular__label">Pass Accuracy</span>
+																</div>
+															-->	
+															</div>
+															
+														</div>
+															
+														<div class="spacer"></div>
+						
+														<!-- Progress: Sho 
+														<div class="progress-stats">
+															<div class="progress__label">Sho</div>
+															<div class="progress">
+																<div class="progress__bar progress__bar--success" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
+															</div>
+															<div class="progress__number">20</div>
+														</div>-->
+														<!-- Progress: Sho / End -->
+														<!-- Progress: Fou 
+														<div class="progress-stats">
+															<div class="progress__label">Fou</div>
+															<div class="progress">
+																<div class="progress__bar progress__bar--success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+															</div>
+															<div class="progress__number">14</div>
+														</div>-->
+														<!-- Progress: Fou / End -->
+														<!-- Progress: OFF 
+														<div class="progress-stats">
+															<div class="progress__label">OFF</div>
+															<div class="progress">
+																<div class="progress__bar progress__bar--success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;"></div>
+															</div>
+															<div class="progress__number">12</div>
+														</div>-->
+														<!-- Progress: OFF / End -->
+						
+													</div>
+												</div>
+											</div>
+										</div>
+									</section>
+						
+									<!-- Ball Possession
+									
+									<section class="game-result__section">
+										<header class="game-result__subheader card__subheader">
+											<h5 class="game-result__subtitle">Ball Possession</h5>
+										</header>
+										<div class="game-result__content">
+						
+											<div class="spacer-sm"></div>
+						
+											
+											<div class="progress-double-wrapper">
+												<div class="progress-inner-holder">
+													<div class="progress__digit progress__digit--left progress__digit--highlight">62%</div>
+													<div class="progress__double">
+														<div class="progress progress--lg">
+															<div class="progress__bar" role="progressbar" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100" style="width: 62%;"></div>
+														</div>
+														<div class="progress progress--lg">
+															<div class="progress__bar progress__bar--success" role="progressbar" aria-valuenow="38" aria-valuemin="0" aria-valuemax="100" style="width: 38%;"></div>
+														</div>
+													</div>
+													<div class="progress__digit progress__digit--right progress__digit--highlight">38%</div>
+												</div>
+											</div>
+											
+						
+										</div>
+									</section>
+									 -->
+									
+									<!-- Ball Possession / End -->
+						
+						
+								</div>
+								<!-- Game Result / End -->
+						
+							</div>
+						</div>
+						<!-- Game Scoreboard / End -->
+		
+						<div class="row">
+							<div class="col-md-6">
+								<!-- Widget: Lineup Table -->
+								<aside class="widget card card--has-table widget--sidebar widget-lineup-table">
+									<div class="widget__title card__header">
+										<h4>{{ myMatch.team1.name }} Lineup</h4>
+									</div>
+									<div class="widget__content card__content">
+								
+										<!-- Lineup Table -->
+										<div class="table-responsive">
+											<table class="table lineup-table">
+												<thead>
+													<tr >
+														<th class="lineup__num">NBR</th>
+														<th class="lineup__pos">POS</th>
+														<th class="lineup__name">Player Name</th>
+														<th class="lineup__info"></th>
+													</tr>
+												</thead>
+												<tbody>
+												<tr *ngIf="myMatch.team1.titulares.length == 0">
+												<td>-</td>
+												<td>-</td>
+												<td>No Players Found</td>
+												<td></td>
+												</tr>
+													<tr *ngFor="let tit_team1 of myMatch.team1.titulares">
+														<td class="lineup__num">{{ tit_team1.dossart }}</td>
+														<td class="lineup__pos">{{ tit_team1.role }}</td>
+														<td class="lineup__name">{{ tit_team1.player.firstName }}  {{ tit_team1.player.lastName }}</td>
+														<td class="lineup__info"><i class="icon-svg "></i></td>
+													
+													<tr>
+														<th colspan="4" class="lineup__subheader">Substitute Players</th>
+													</tr>
+												<tr *ngIf="myMatch.team1.substitutes.length == 0">
+												<td>-</td>
+												<td>-</td>
+												<td>No Players Found</td>
+												<td></td>
+												</tr>
+													<tr *ngFor="let sub_team1 of myMatch.team1.substitutes">
+														<td class="lineup__num">{{ sub_team1.dossart }}</td>
+														<td class="lineup__pos">{{ sub_team1.role }}</td>
+														<td class="lineup__name">{{ sub_team1.player.firstName }}  {{ sub_team1.player.lastName }}</td>
+														<td class="lineup__info"><i class="icon-svg "></i></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<!-- Lineup Table / End -->
+								
+									</div>
+								</aside>
+								<!-- Widget: Lineup Table / End -->
+							</div>
+							<div class="col-md-6">
+								<!-- Widget: Lineup Table Alt -->
+								<aside class="widget card card--alt-color card--has-table widget--sidebar widget-lineup-table">
+									<div class="widget__title card__header">
+										<h4>{{ myMatch.team2.name }} Lineup</h4>
+									</div>
+									<div class="widget__content card__content">
+								
+										<!-- Lineup Table -->
+										<div class="table-responsive">
+											<table class="table lineup-table">
+												<thead>
+													<tr>
+														<th class="lineup__num">NBR</th>
+														<th class="lineup__pos">POS</th>
+														<th class="lineup__name">Player Name</th>
+														<th class="lineup__info"></th>
+													</tr>
+												</thead>
+												<tbody>
+												<tr *ngIf="myMatch.team2.titulares.length == 0">
+												<td>-</td>
+												<td>-</td>
+												<td>No Players Found</td>
+												<td></td>
+												</tr>
+													<tr *ngFor="let tit_team2 of myMatch.team2.titulares">
+														<td class="lineup__num">{{ tit_team2.dossart }}</td>
+														<td class="lineup__pos">{{ tit_team2.role }}</td>
+														<td class="lineup__name">{{ tit_team2.player.firstName }}  {{ tit_team2.player.lastName }}</td>
+														<td class="lineup__info"><i class="icon-svg "></i></td>
+													
+													<tr>
+														<th colspan="4" class="lineup__subheader">Substitute Players</th>
+													</tr>
+												<tr *ngIf="myMatch.team2.substitutes.length == 0">
+												<td>-</td>
+												<td>-</td>
+												<td>No Players Found</td>
+												<td></td>
+												</tr>
+													<tr *ngFor="let sub_team2 of myMatch.team2.substitutes">
+														<td class="lineup__num">{{ sub_team2.dossart }}</td>
+														<td class="lineup__pos">{{ sub_team2.role }}</td>
+														<td class="lineup__name">{{ sub_team2.player.firstName }}  {{ sub_team2.player.lastName }}</td>
+														<td class="lineup__info"><i class="icon-svg "></i></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<!-- Lineup Table / End -->
+								
+									</div>
+								</aside>
+								<!-- Widget: Lineup Table Alt / End -->
+							</div>
+						</div>
+		
+					</div>
+					<!-- Content / End -->
+		
+					<!-- Sidebar -->
+					<div class="sidebar col-lg-4">
+		
+						<!-- Widget: Team Info -->
+						<div class="widget widget--sidebar card card--no-paddings widget-event-info">
+							<div class="widget__title card__header">
+								<h4>Game Information</h4>
+							</div>
+							<div class="widget__content card__content">
+								<!-- Google Map -->
+								<div class="gm-map gm-map--sm alc-event-gmap" data-map-style="default" data-map-address="" data-map-zoom="15" data-map-type-control="false" data-street-view-control="false" data-fullscreen-control="false" data-zoom-control="false"></div>
+								<!-- Google Map / End -->
+						
+								<ul class="alc-event-info list-unstyled">
+						
+									<li class="alc-event-info__item">
+										<span class="alc-event-info__icon">
+											<i class="icon-svg icon-map-pin"></i>
+										</span>
+										<span class="alc-event-info__value">{{ myMatch.terrain || 'No Terrain Found' }}</span>
+									</li>
+									<li class="alc-event-info__item">
+										<span class="alc-event-info__icon">
+											<i class="icon-svg icon-trophy-new"></i>
+										</span>
+										<span class="alc-event-info__value">Type : {{ myMatch.type }}</span>
+									</li>
+									<li class="alc-event-info__item">
+										<span class="alc-event-info__icon">
+											<i class="icon-svg icon-calendar"></i>
+										</span>
+										<span class="alc-event-info__value">{{ ConvertFullDate(myMatch.start_date) }}</span>
+									</li>
+									<!--<li class="alc-event-info__item">
+										<span class="alc-event-info__icon">
+											<i class="icon-svg icon-whistle"></i>
+										</span>
+										<span class="alc-event-info__value">M. Refree, T. Addit &amp; J. Swanson</span>
+									</li>
+									<li class="alc-event-info__item">
+										<span class="alc-event-info__icon">
+											<i class="icon-svg icon-person"></i>
+										</span>
+										<span class="alc-event-info__value">12.700 Attendance (18.000 Capacity)</span>
+									</li>
+						
+									<li class="alc-event-info__item alc-event-info__item--desc">
+										<span class="alc-event-info__label">Additional Info:</span>
+										<span class="alc-event-info__desc">Lorem ipsum dolor sit amet, consectetur dere adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</span>
+									</li>
+						-->
+								</ul>
+						
+							</div>
+						</div>
+						<!-- Widget: Team Info / End -->
+		
+						<!-- Widget: Featured Player -->
+						<aside class="widget card widget--sidebar widget-player widget-player--soccer">
+							<div class="widget__title card__header">
+								<h4>man Of The Match</h4>
+							</div>
+						
+							<div class="widget__content card__content">
+								<div class="widget-player__ribbon">
+									<div class="fas fa-star"></div>
+								</div>
+								<figure class="widget-player__photo">
+								<!--
+									<img src="{{ myMatch.manOfTheMatch.photo }}" style="height:15vw;width:15vw" alt="Frank Stevens">
+								-->	
+								</figure>
+								
+								<header class="widget-player__header clearfix">
+									<div class="widget-player__number"></div>
+									<h4 class="widget-player__name" >
+										<span class="widget-player__first-name">{{ myMatch.manOfTheMatch.lastName }}</span>
+										<span class="widget-player__last-name">{{ myMatch.manOfTheMatch.firstName }}</span>
+									</h4>
+								</header>
+								<div class="widget-player__content">
+									<div class="widget-player__content-inner">
+										<div class="widget-player__stat widget-player__goals">
+											<div class="widget-player__stat-number">{{ myManOfTheMatch.goals.length || '0' }}</div>
+											<h6 class="widget-player__stat-label">Goals</h6>
+										</div>
+										<div class="widget-player__stat widget-player__shots">
+											<div class="widget-player__stat-number">{{ myManOfTheMatch.yellowCards.length || '0' }}</div>
+											<h6 class="widget-player__stat-label">Yellow Cards</h6>
+										</div>
+										<div class="widget-player__stat widget-player__ast">
+											<div class="widget-player__stat-number">{{ myManOfTheMatch.redCards.length || '0' }}</div>
+											<h6 class="widget-player__stat-label">Red Cards</h6>
+										</div>
+										<div class="widget-player__stat widget-player__played">
+											<div class="widget-player__stat-number">{{ myManOfTheMatch.matches.length || '0' }}</div>
+											<h6 class="widget-player__stat-label">Played</h6>
+										</div>
+									</div>
+								</div>
+							</div>
+						
+							
+						
+						</aside>
+						<!-- Widget: Featured Player / End -->
+		
+					</div>
+					<!-- Sidebar / End -->
+				</div>
+		
+			</div>
+		</div>
+		
+		<!-- Content / End -->

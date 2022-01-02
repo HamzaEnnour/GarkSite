@@ -1,0 +1,103 @@
+<h4 class="text-center">Create Your Team</h4>
+<br />
+
+<!-- Login Form -->
+<form #TeamForm="ngForm" novalidate (ngSubmit)="onSubmit()">
+<div class="form-group form-group--upload">
+										<div class="form-group__avatar">
+											<img src="{{fb}}" style="height:60px;width:60px">
+											<div class="form-group__label">
+												<h6>Team photo</h6>
+												<span>Minimum size 60x60px</span>
+											</div>
+										</div>
+										<div class="form-group__upload">
+											<label class="btn btn-default btn-xs btn-file">
+												{{filename}} <input type="file" [formControl]="myImage" accept="image/gif, image/jpeg, image/png, image/svg+xml, image/pipeg, image/bmp" (change)="UpdateImage($event)" class="form-control-file" style="display: none;">
+											</label>
+										</div>
+									</div>
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input
+      type="text"
+      name
+      ngModel
+      #name="ngModel"
+      [(ngModel)]="nameModel"
+      [ngModelOptions]="{ standalone: true }"
+      id="name"
+      class="form-control"
+      placeholder="Team Name..."
+    />
+  </div>
+ 
+  <div class="form-group">
+	<label for="Category">Category</label>
+	<select name="Category" id="Category"	Category 
+	ngModel 
+	#Category="ngModel" 
+  aria-placeholder="Team category"
+	[(ngModel)]="CategoryModel" class="form-control">
+    <option value="" disabled selected hidden>Team category...</option>
+		<option value="Amateur">Amateur</option>
+		<option value="Student">Student</option>
+	</select>
+</div>
+  <div class="form-group">
+    <label for="faouriteCountries">Team nationality</label>
+    <input
+      faouriteCountries
+
+      [matAutocomplete]="autocountries"
+      [formControl]="myControlCountries"
+      name="faouriteCountries"
+      id="faouriteCountries"
+      class="form-control"
+      placeholder="Enter your Nationality..."
+    />
+    <mat-autocomplete #autocountries="matAutocomplete" [displayWith]="displayFnCountries">
+    <mat-option *ngFor="let co of filterOptionsCountries | async" [value]="co">
+    {{co.Name}}
+    </mat-option>
+    </mat-autocomplete>
+  </div>
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea 
+	class="form-control" 
+	id="description" 
+	description 
+	ngModel 
+	#description="ngModel" 
+	[(ngModel)]="descriptionModel"
+	[ngModelOptions]="{ standalone: true }" 
+  placeholder="Team Description..."
+	rows="3" >
+	</textarea>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group form-group--sm">
+        <input
+          type="submit"
+          class="btn btn-primary-inverse btn-lg btn-block"
+          value="Add Team"
+        />
+      </div>
+    </div>
+	<div class="col-md-6">
+      <div class="form-group form-group--sm">
+        <input
+          type="button"
+          class="btn btn-default btn-lg btn-block" (click)="onRemove()"
+          value="Cancel"
+        />
+      </div>
+    </div>
+  </div>
+</form>
+<!-- Login Form / End -->
+
+<!-- Content / End -->
+<simple-notifications></simple-notifications>

@@ -1,0 +1,186 @@
+<!-- Event Header
+		================================================== -->
+		<div class="alc-event-header alc-event-header--layout-2" *ngIf="myMatch != undefined">
+			<div class="alc-event-header__top">
+				<div class="container">
+					<h6 class="title">{{myMatch.type}}</h6>
+					<span class="subtitle">{{ ConvertDate(myMatch.start_date) }}</span>
+				</div>
+			</div>
+			<div class="alc-event-header__content">
+				<div class="container">
+					<div class="alc-event-header__content-inner">
+		
+						<!-- Competitors -->
+						<div class="alc-event-competitors">
+							<!-- Team #1 -->
+							<div class="{{ GuessWinner('team1') }}">
+								<div class="alc-event-team__logo-alt">
+									<div class="alc-event-team__logo-alt-inner">
+										<img src="{{ CheckTeamImage(myMatch.team1.image) }}" class="alc-event-team__logo-alt-img">
+									</div>
+								</div>
+								<div class="alc-event-team__details">
+									<h4 class="alc-event-team__name">{{myMatch.team1.name}}</h4>
+									<div class="alc-event-team__info">{{myMatch.team1.categorie}}</div>
+								</div>
+								<figure class="alc-event-team__logo">
+									<img src="{{ CheckTeamImage(myMatch.team1.image) }}" style="width:75px;height:50px"  alt="">
+								</figure>
+								<div class="alc-event-team__score-wrap">
+									<div class="alc-event-team__score">{{ GoalsNumber(myMatch.team1._id).length || '0' }}</div>
+								</div>
+							</div>
+							<!-- Team #1 / End
+							[ngClass]="{
+    										'alc-event-competitors__item alc-event-team alc-event-team--winner': myMatch.team2._id == myMatch.winner._id,
+    										'alc-event-competitors__item alc-event-team': myMatch.team2._id != myMatch.winner._id
+  										}"
+							
+							 -->
+									  
+							<!-- Team #2 -->
+							<div class="{{ GuessWinner('team2') }}">
+								<div class="alc-event-team__logo-alt alc-event-team__logo-alt--color-alt">
+									<div class="alc-event-team__logo-alt-inner">
+										<img src="{{ CheckTeamImage(myMatch.team2.image) }}" alt="" class="alc-event-team__logo-alt-img">
+									</div>
+								</div>
+								<div class="alc-event-team__details">
+									<h4 class="alc-event-team__name">{{myMatch.team2.name}}</h4>
+									<div class="alc-event-team__info">{{myMatch.team2.categorie}}</div>
+								</div>
+								<figure class="alc-event-team__logo">
+									<img src="{{ CheckTeamImage(myMatch.team2.image) }}" style="width:75px;height:50px" alt="">
+								</figure>
+								<div class="alc-event-team__score-wrap">
+									<div class="alc-event-team__score">{{ GoalsNumber(myMatch.team2._id).length || '0' }}</div>
+								</div>
+							</div>
+							<!-- Team #2 / End -->
+		
+							<div class="alc-event-competitors__divider"></div>
+		
+						</div>
+						<!-- Competitors / End -->
+		
+					</div>
+
+				</div>
+
+			</div>
+			<div class="alc-event-header__bottom">
+				<div class="container">
+					<div class="row">
+						<div class="col-6">
+							<!-- 1st Team Performances -->
+							<div class="alc-event-header-performances">
+ 
+								<span class="alc-event-header__performance" *ngFor="let goals of GetGoalsOfTeam('team1',myMatch.team1._id)" >{{ GoalsPlayer(goals.player).player.firstName }} ({{ goals.minutes }}’) <i class="icon-svg icon-soccer-ball"></i></span>
+								<span class="alc-event-header__performance" *ngFor="let goals of GetyellowCardsOfTeam('team1',myMatch.team1._id)" >{{ GoalsPlayer(goals.player).player.firstName }} ({{ goals.minutes }}’) <i class="icon-svg icon-soccer-ball"></i></span>
+								<span class="alc-event-header__performance" *ngFor="let goals of GetredCardsOfTeam('team1',myMatch.team1._id)" >{{ GoalsPlayer(goals.player).player.firstName }} ({{ goals.minutes }}’) <i class="icon-svg icon-soccer-ball"></i></span>
+							</div>
+							<!-- 1st Team Performances / End -->
+						</div>
+						<div class="col-6">
+							<!-- 2nd Team Performances -->
+							<div class="alc-event-header-performances">
+ 
+								<span class="alc-event-header__performance" *ngFor="let goals of GetGoalsOfTeam('team2',myMatch.team2._id)" >{{ GoalsPlayerTeam2(goals.player).player.firstName }} ({{ goals.minutes }}’) <i class="icon-svg icon-soccer-ball"></i></span>
+								<span class="alc-event-header__performance" *ngFor="let goals of GetyellowCardsOfTeam('team2',myMatch.team2._id)" >{{ GoalsPlayerTeam2(goals.player).player.firstName }} ({{ goals.minutes }}’) <i class="icon-svg icon-soccer-ball"></i></span>
+								<span class="alc-event-header__performance" *ngFor="let goals of GetredCardsOfTeam('team2',myMatch.team2._id)" >{{ GoalsPlayerTeam2(goals.player).player.firstName }} ({{ goals.minutes }}’) <i class="icon-svg icon-soccer-ball"></i></span>
+							</div>
+							<!-- 2nd Team Performances / End -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		
+		<!-- Event Pages Nav -->
+		<nav class="content-filter">
+			<div class="container">
+				<a (click)="toogle()" class="content-filter__toggle"></a>
+				<ul class="content-filter__list">
+					<li class="content-filter__item "><a routerLink="/views/match-overview/{{token}}" class="content-filter__link"><small>Match</small>Overview</a></li>
+					<li class="content-filter__item "><a routerLink="/views/match-box-score/{{token}}" class="content-filter__link"><small>Match</small>Box Score</a></li>
+					<li class="content-filter__item content-filter__item--active"><a routerLink="/views/match-play-by-play/{{token}}" class="content-filter__link"><small>Match</small>Play-by-Play</a></li>
+	</ul>
+			</div>
+		</nav>
+		<!-- Event Pages Nav / End -->
+		
+		<!-- Content
+		================================================== -->
+		<div class="site-content" *ngIf="myMatch != undefined">
+			<div class="container">
+		
+				<!-- Match Commentary -->
+				<div class="card card--has-table alc-match-commentary-wrapper">
+					<div class="card__header card__header--double">
+						<h4>{{myMatch.team1.name}}</h4>
+						<h4>{{myMatch.team2.name}}</h4>
+					</div>
+					<div class="card__content">
+						<!-- Match Commentary Content -->
+						<table class="table alc-match-commentary">
+							<thead>
+								<tr>
+									<th colspan="3">Kickoff ({{ ConvertFullDate(myMatch.start_date) }})</th>
+								</tr>
+							</thead>
+							<tbody>
+		
+								<tr *ngFor="let ma of SortMatcheActions(matchAction)">
+									<td class="alc-commentary-cell alc-commentary-cell--team1" >
+										<div class="alc-commentary-cell__inner" >
+										<div class="alc-commentary-cell__text" *ngIf="ma.team._id == myMatch.team1._id">
+										<strong>{{ma.player.player.firstName}}  {{ma.player.player.lastName}}</strong>
+										</div>
+										
+										<div class="alc-commentary-cell__icon" *ngIf="ma.team._id == myMatch.team1._id">
+													<i class="icon-svg icon-soccer-ball" *ngIf="ma.type == 'goal'"></i>
+													<i class="icon-svg icon-yellow-card" *ngIf="ma.type == 'yellowCard'"></i>
+													<i class="icon-svg icon-red-card" *ngIf="ma.type == 'redCard'"></i>
+												</div>
+												</div>
+									</td>
+									<td class="alc-time-stamp">{{ma.minutes}}’</td>
+									<td class="alc-commentary-cell alc-commentary-cell--team2">
+										<div class="alc-commentary-cell__inner">
+												<div class="alc-commentary-cell__text" *ngIf="ma.team._id == myMatch.team2._id">
+													<strong>{{ma.player.player.firstName}}  {{ma.player.player.lastName}}</strong>
+												</div>
+												<div class="alc-commentary-cell__icon" *ngIf="ma.team._id == myMatch.team2._id">
+													<i class="icon-svg icon-soccer-ball" *ngIf="ma.type == 'goal'"></i>
+													<i class="icon-svg icon-yellow-card" *ngIf="ma.type == 'yellowCard'"></i>
+													<i class="icon-svg icon-red-card" *ngIf="ma.type == 'redCard'"></i>
+												</div>
+										</div>
+									</td>
+								</tr>
+
+								<tr>
+									<td class="alc-commentary-subheader" colspan="3">
+										<div class="alc-commentary-subheader__icon">
+											<i class="icon-svg icon-stopwatch"></i>
+										</div>
+										<div class="alc-commentary-subheader__title">Final</div>
+										<div class="alc-commentary-subheader__subtitle">
+											End of the game. <strong>({{ ConvertFullDate(myMatch.end_date) }})</strong>
+										</div>
+									</td>
+								</tr>
+		
+							</tbody>
+						</table>
+						<!-- Match Commentary Content / End -->
+					</div>
+				</div>
+				<!-- Match Commentary / End -->
+		
+			</div>
+		</div>
+		
+		<!-- Content / End -->

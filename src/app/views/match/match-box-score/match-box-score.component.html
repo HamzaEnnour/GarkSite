@@ -1,0 +1,488 @@
+<!-- Event Header
+		================================================== -->
+		<div class="alc-event-header alc-event-header--layout-2">
+			<div class="alc-event-header__top">
+				<div class="container">
+					<h6 class="title">{{myMatch.type}}</h6>
+					<span class="subtitle">{{ ConvertDate(myMatch.start_date) }}</span>
+				</div>
+			</div>
+			<div class="alc-event-header__content">
+				<div class="container">
+					<div class="alc-event-header__content-inner">
+		
+						<!-- Competitors -->
+						<div class="alc-event-competitors">
+							<!-- Team #1 -->
+							<div class="{{ GuessWinner('team1') }}">
+								<div class="alc-event-team__logo-alt">
+									<div class="alc-event-team__logo-alt-inner">
+										<img src="{{ CheckTeamImage(myMatch.team1.image) }}" class="alc-event-team__logo-alt-img">
+									</div>
+								</div>
+								<div class="alc-event-team__details">
+									<h4 class="alc-event-team__name">{{myMatch.team1.name}}</h4>
+									<div class="alc-event-team__info">{{myMatch.team1.categorie}}</div>
+								</div>
+								<figure class="alc-event-team__logo">
+									<img src="{{ CheckTeamImage(myMatch.team1.image) }}" style="width:75px;height:50px"  alt="">
+								</figure>
+								<div class="alc-event-team__score-wrap">
+									<div class="alc-event-team__score">{{ GoalsNumber(myMatch.team1._id).length || '0' }}</div>
+								</div>
+							</div>
+							<!-- Team #1 / End
+							[ngClass]="{
+    										'alc-event-competitors__item alc-event-team alc-event-team--winner': myMatch.team2._id == myMatch.winner._id,
+    										'alc-event-competitors__item alc-event-team': myMatch.team2._id != myMatch.winner._id
+  										}"
+							
+							 -->
+									  
+							<!-- Team #2 -->
+							<div class="{{ GuessWinner('team2') }}">
+								<div class="alc-event-team__logo-alt alc-event-team__logo-alt--color-alt">
+									<div class="alc-event-team__logo-alt-inner">
+										<img src="{{ CheckTeamImage(myMatch.team2.image) }}" alt="" class="alc-event-team__logo-alt-img">
+									</div>
+								</div>
+								<div class="alc-event-team__details">
+									<h4 class="alc-event-team__name">{{myMatch.team2.name}}</h4>
+									<div class="alc-event-team__info">{{myMatch.team2.categorie}}</div>
+								</div>
+								<figure class="alc-event-team__logo">
+									<img src="{{ CheckTeamImage(myMatch.team2.image) }}" style="width:75px;height:50px" alt="">
+								</figure>
+								<div class="alc-event-team__score-wrap">
+									<div class="alc-event-team__score">{{ GoalsNumber(myMatch.team2._id).length || '0' }}</div>
+								</div>
+							</div>
+							<!-- Team #2 / End -->
+		
+							<div class="alc-event-competitors__divider"></div>
+		
+						</div>
+						<!-- Competitors / End -->
+		
+					</div>
+				</div>
+			</div>
+		
+			<div class="alc-event-header__bottom">
+				<div class="container">
+					<div class="row">
+						<div class="col-6">
+							<!-- 1st Team Performances -->
+							<div class="alc-event-header-performances">
+ 
+								<span class="alc-event-header__performance" *ngFor="let goals of GetGoalsOfTeam('team1',myMatch.team1._id)" >{{ GoalsPlayer(goals.player).player.firstName }} ({{ goals.minutes }}’) <i class="icon-svg icon-soccer-ball"></i></span>
+								<span class="alc-event-header__performance" *ngFor="let goals of GetyellowCardsOfTeam('team1',myMatch.team1._id)" >{{ GoalsPlayer(goals.player).player.firstName }} ({{ goals.minutes }}’) <i class="icon-svg icon-soccer-ball"></i></span>
+								<span class="alc-event-header__performance" *ngFor="let goals of GetredCardsOfTeam('team1',myMatch.team1._id)" >{{ GoalsPlayer(goals.player).player.firstName }} ({{ goals.minutes }}’) <i class="icon-svg icon-soccer-ball"></i></span>
+							</div>
+							<!-- 1st Team Performances / End -->
+						</div>
+						<div class="col-6">
+							<!-- 2nd Team Performances -->
+							<div class="alc-event-header-performances">
+ 
+								<span class="alc-event-header__performance" *ngFor="let goals of GetGoalsOfTeam('team2',myMatch.team2._id)" >{{ GoalsPlayerTeam2(goals.player).player.firstName }} ({{ goals.minutes }}’) <i class="icon-svg icon-soccer-ball"></i></span>
+								<span class="alc-event-header__performance" *ngFor="let goals of GetyellowCardsOfTeam('team2',myMatch.team2._id)" >{{ GoalsPlayerTeam2(goals.player).player.firstName }} ({{ goals.minutes }}’) <i class="icon-svg icon-soccer-ball"></i></span>
+								<span class="alc-event-header__performance" *ngFor="let goals of GetredCardsOfTeam('team2',myMatch.team2._id)" >{{ GoalsPlayerTeam2(goals.player).player.firstName }} ({{ goals.minutes }}’) <i class="icon-svg icon-soccer-ball"></i></span>
+							</div>
+							<!-- 2nd Team Performances / End -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		
+		<!-- Event Pages Nav -->
+		<nav class="content-filter">
+			<div class="container">
+				<a (click)="toogle()" class="content-filter__toggle"></a>
+				<ul class="content-filter__list">
+						<li class="content-filter__item "><a routerLink="/views/match-overview/{{token}}" class="content-filter__link"><small>Match</small>Overview</a></li>
+					<li class="content-filter__item content-filter__item--active"><a routerLink="/views/match-box-score/{{token}}" class="content-filter__link"><small>Match</small>Box Score</a></li>
+					<li class="content-filter__item "><a routerLink="/views/match-play-by-play/{{token}}" class="content-filter__link"><small>Match</small>Play-by-Play</a></li>
+				</ul>
+			</div>
+		</nav>
+		<!-- Event Pages Nav / End -->
+		
+		<!-- Content
+		================================================== -->
+		<div class="site-content" *ngIf="myMatch!=undefined">
+			<div class="container">
+		
+				<!-- Alchemists - Stats & Lineup -->
+				<div class="row">
+					<div class="col-lg-8">
+		
+						<!-- Stats -->
+						<div class="card card--has-table">
+							<div class="card__header">
+								<h4>{{ myMatch.team1.name }} Lineup &amp; Stats</h4>
+							</div>
+							<div class="card__content">
+		
+								<div class="table-responsive">
+									<table class="table table-hover alc-table-stats alc-table-stats--compact-sm">
+										<thead>
+										
+											<tr >
+												<th class="alc-number alc-align-start">NBR</th>
+												<th class="alc-position alc-align-start">Pos</th>
+												<th class="alc-player alc-align-start">Player</th>
+												<th class="alc-tg">TG</th>
+												<th class="alc-yc">YC</th>
+												<th class="alc-rc">RC</th>
+											</tr>
+										</thead>
+										<tbody>
+		
+											<!-- Played  -->
+											<tr *ngFor="let tit_team1 of myMatch.team1.titulares">
+												<td class="alc-number alc-align-start">{{ tit_team1.dossart }}</td>
+												<td class="alc-position alc-align-start">{{ tit_team1.role }}</td>
+												<td class="alc-align-start">
+													<div class="alc-player-info">
+														<img src="{{ tit_team1.player.photo }}" class="alc-player-info__img" alt="Nick Rodgers">
+														<div class="alc-player-info__name">
+															{{ tit_team1.player.firstName }}  {{ tit_team1.player.lastName }}
+														</div>
+													</div>
+												</td>
+		
+												<td>({{ GoalsPlayerNumber(tit_team1._id) }}){{" "}}<i  class="icon-svg icon-soccer-ball"></i></td>
+												<td>({{ YellowCardsPlayerNumber(tit_team1._id) }}){{" "}}<i  class="icon-svg icon-yellow-card"></i></td>
+												<td>({{ RedCardsPlayerNumber(tit_team1._id) }}){{" "}}<i  class="icon-svg icon-red-card"></i></td>
+											</tr>
+
+											<!-- Staff -->
+											<tr>
+												<td class="alc-align-start" colspan="2">Team Capitaine</td>
+												<td class="alc-align-start">
+													<div class="alc-player-info">
+														<img src="{{ myMatch.team1.capitaine.player.photo }}" class="alc-player-info__img" alt="Nick Rodgers">
+														<div class="alc-player-info__name">
+															{{ myMatch.team1.capitaine.player.firstName }}  {{  myMatch.team1.capitaine.player.lastName }}
+														</div>
+													</div>
+												</td>
+												<td>-</td>
+												<td>-</td>
+												<td>-</td>
+											</tr>
+											<!-- Staff / End -->
+		
+											<tr>
+												<th class="alc-subheader alc-highlight" colspan="12">Substitute Players</th>
+											</tr>
+		
+											<!-- Substitute -->
+											<tr *ngFor="let sub_team1 of myMatch.team1.substitutes">
+												<td class="alc-number alc-align-start">{{ sub_team1.dossart }}</td>
+												<td class="alc-position alc-align-start">{{ sub_team1.role }}</td>
+												<td class="alc-align-start">
+													<div class="alc-player-info">
+														<img src="{{ sub_team1.player.photo }}" class="alc-player-info__img" alt="Taylor Redner">
+														<div class="alc-player-info__name">
+															{{ sub_team1.player.firstName }}  {{ sub_team1.player.lastName }}
+														</div>
+													</div>
+												</td>
+		
+												<td>-</td>
+												<td>-</td>
+												<td>-</td>
+		
+											</tr>
+										
+											<!-- Played / End -->
+		
+										</tbody>
+									</table>
+								</div>
+		
+							</div>
+						</div>
+						<!-- Stats / End -->
+		
+					</div>
+					<div class="col-lg-4">
+		
+						<!-- Widget: Lineup -->
+						<div class="widget card widget--sidebar widget-lineup">
+							<div class="widget__title card__header">
+								<h4>{{ myMatch.team1.name }} Tactic</h4>
+							</div>
+							<div class="widget__content card__content">
+		
+								<div class="alc-formation">
+									<ul class="alc-formation__field alc-formation__field--bg-2 alc-formation__field--lineup-1" >
+										<li class="alc-formation__player" >
+											<div class="alc-formation__player-tshirt alc-formation__player-tshirt--clean" *ngIf="SetPositionByRole('GK','team1')[0] !=undefined " >
+												<div class="alc-formation__player-number" *ngIf="SetPositionByRole('GK','team1')[0] !=undefined " >{{ SetPositionByRole('GK','team1')[0].role }}</div>
+											</div>
+											<span class="alc-formation__player-name" *ngIf="SetPositionByRole('GK','team1')[0] !=undefined " >{{ SetPositionByRole('GK','team1')[0].player.firstName }}</span>
+										</li>
+										<li class="alc-formation__player" >
+											<div class="alc-formation__player-tshirt " *ngIf="SetPositionByRole('CB','team1')[0] !=undefined ">
+												<div class="alc-formation__player-number" *ngIf="SetPositionByRole('CB','team1')[0] !=undefined ">{{ SetPositionByRole('CB','team1')[0].role }}</div>
+											</div>
+											<span class="alc-formation__player-name" *ngIf="SetPositionByRole('CB','team1')[0] !=undefined ">{{ SetPositionByRole('CB','team1')[0].player.firstName }}</span>
+										</li>
+										<li class="alc-formation__player" >
+											<div class="alc-formation__player-tshirt " *ngIf="SetPositionByRole('CB','team1')[1] !=undefined ">
+												<div class="alc-formation__player-number" *ngIf="SetPositionByRole('CB','team1')[1] !=undefined " >{{ SetPositionByRole('CB','team1')[1].role }}</div>
+											</div>
+											<span class="alc-formation__player-name" *ngIf="SetPositionByRole('CB','team1')[1] !=undefined ">{{ SetPositionByRole('CB','team1')[1].player.firstName }}</span>
+										</li>
+										<li class="alc-formation__player" >
+											<div class="alc-formation__player-tshirt " *ngIf="SetPositionByRole('RB','team1')[0] !=undefined ">
+												<div class="alc-formation__player-number" *ngIf="SetPositionByRole('RB','team1')[0] !=undefined ">{{ SetPositionByRole('RB','team1')[0].role }}</div>
+											</div>
+											<span class="alc-formation__player-name" *ngIf="SetPositionByRole('RB','team1')[0] !=undefined ">{{ SetPositionByRole('RB','team1')[0].player.firstName }}</span>
+										</li>
+										<li class="alc-formation__player" >
+											<div class="alc-formation__player-tshirt " *ngIf="SetPositionByRole('LB','team1')[0] !=undefined ">
+												<div class="alc-formation__player-number" *ngIf="SetPositionByRole('LB','team1')[0] !=undefined ">{{ SetPositionByRole('LB','team1')[0].role }}</div>
+											</div>
+											<span class="alc-formation__player-name" *ngIf="SetPositionByRole('LB','team1')[0] !=undefined ">{{ SetPositionByRole('LB','team1')[0].player.firstName }}</span>
+										</li>
+										<li class="alc-formation__player" >
+											<div class="alc-formation__player-tshirt " *ngIf="SetPositionByRole('DM','team1')[0] !=undefined ">
+												<div class="alc-formation__player-number" *ngIf="SetPositionByRole('DM','team1')[0] !=undefined ">{{ SetPositionByRole('DM','team1')[0].role }}</div>
+											</div>
+											<span class="alc-formation__player-name" *ngIf="SetPositionByRole('DM','team1')[0] !=undefined ">{{ SetPositionByRole('DM','team1')[0].player.firstName }}</span>
+										</li>
+										<li class="alc-formation__player" >
+											<div class="alc-formation__player-tshirt " *ngIf="SetPositionByRole('AM','team1')[0] !=undefined ">
+												<div class="alc-formation__player-number" *ngIf="SetPositionByRole('AM','team1')[0] !=undefined ">{{ SetPositionByRole('AM','team1')[0].role }}</div>
+											</div>
+											<span class="alc-formation__player-name" *ngIf="SetPositionByRole('AM','team1')[0] !=undefined ">{{ SetPositionByRole('AM','team1')[0].player.firstName }}</span>
+										</li>
+										<li class="alc-formation__player" >
+											<div class="alc-formation__player-tshirt " *ngIf="SetPositionByRole('CM','team1')[0] !=undefined ">
+												<div class="alc-formation__player-number" *ngIf="SetPositionByRole('CM','team1')[0] !=undefined ">{{ SetPositionByRole('CM','team1')[0].role }}</div>
+											</div>
+											<span class="alc-formation__player-name" *ngIf="SetPositionByRole('CM','team1')[0] !=undefined ">{{ SetPositionByRole('CM','team1')[0].player.firstName }}</span>
+										</li>
+										<li class="alc-formation__player" >
+											<div class="alc-formation__player-tshirt " *ngIf="SetPositionByRole('RW','team1')[0] !=undefined ">
+												<div class="alc-formation__player-number" *ngIf="SetPositionByRole('RW','team1')[0] !=undefined ">{{ SetPositionByRole('RW','team1')[0].role }}</div>
+											</div>
+											<span class="alc-formation__player-name" *ngIf="SetPositionByRole('RW','team1')[0] !=undefined ">{{ SetPositionByRole('RW','team1')[0].player.firstName }}</span>
+										</li>
+										<li class="alc-formation__player" >
+											<div class="alc-formation__player-tshirt " *ngIf="SetPositionByRole('LW','team1')[0] !=undefined ">
+												<div class="alc-formation__player-number" *ngIf="SetPositionByRole('LW','team1')[0] !=undefined ">{{ SetPositionByRole('LW','team1')[0].role }}</div>
+											</div>
+											<span class="alc-formation__player-name" *ngIf="SetPositionByRole('LW','team1')[0] !=undefined ">{{ SetPositionByRole('LW','team1')[0].player.firstName }}</span>
+										</li>
+										<li class="alc-formation__player" >
+											<div class="alc-formation__player-tshirt "  *ngIf="SetPositionByRole('CF','team1')[0] !=undefined ">
+												<div class="alc-formation__player-number" *ngIf="SetPositionByRole('CF','team1')[0] !=undefined ">{{ SetPositionByRole('CF','team1')[0].role }}</div>
+											</div>
+											<span class="alc-formation__player-name" *ngIf="SetPositionByRole('CF','team1')[0] !=undefined ">{{ SetPositionByRole('CF','team1')[0].player.firstName }}</span>
+										</li>
+									</ul>
+								</div>
+		
+							</div>
+						</div>
+						<!-- Widget: Lineup / End -->
+		
+					</div>
+				</div>
+				<!-- Alchemists - Stats & Lineup / End -->
+		
+				<!-- Clovers - Stats & Lineup -->
+				<div class="row">
+					<div class="col-lg-8">
+		
+						<!-- Stats -->
+						<div class="card card--alt-color card--has-table">
+							<div class="card__header">
+								<h4>{{ myMatch.team2.name }} Lineup &amp; Stats</h4>
+							</div>
+							<div class="card__content">
+		
+								<table class="table table-hover alc-table-stats alc-table-stats--compact-sm">
+									<thead>
+										
+											<tr >
+												<th class="alc-number alc-align-start">NBR</th>
+												<th class="alc-position alc-align-start">Pos</th>
+												<th class="alc-player alc-align-start">Player</th>
+												<th class="alc-tg">TG</th>
+												<th class="alc-yc">YC</th>
+												<th class="alc-rc">RC</th>
+											</tr>
+										</thead>
+										<tbody>
+		
+											<!-- Played  -->
+											<tr *ngFor="let tit_team2 of myMatch.team2.titulares">
+												<td class="alc-number alc-align-start">{{ tit_team2.dossart }}</td>
+												<td class="alc-position alc-align-start">{{ tit_team2.role }}</td>
+												<td class="alc-align-start">
+													<div class="alc-player-info">
+														<img src="{{ tit_team2.player.photo }}" class="alc-player-info__img" alt="Nick Rodgers">
+														<div class="alc-player-info__name">
+															{{ tit_team2.player.firstName }}  {{ tit_team2.player.lastName }}
+														</div>
+													</div>
+												</td>
+		
+												<td>({{ GoalsPlayerNumber(tit_team2._id) }}){{" "}}<i  class="icon-svg icon-soccer-ball"></i></td>
+												<td>({{ YellowCardsPlayerNumber(tit_team2._id) }}){{" "}}<i  class="icon-svg icon-yellow-card"></i></td>
+												<td>({{ RedCardsPlayerNumber(tit_team2._id) }}){{" "}}<i  class="icon-svg icon-red-card"></i></td>
+											</tr>
+
+											<!-- Staff -->
+											<tr>
+												<td class="alc-align-start" colspan="2">Team Capitaine</td>
+												<td class="alc-align-start">
+													<div class="alc-player-info">
+														<img src="{{ myMatch.team2.capitaine.player.photo }}" class="alc-player-info__img" alt="Nick Rodgers">
+														<div class="alc-player-info__name">
+															{{ myMatch.team2.capitaine.player.firstName }}  {{  myMatch.team2.capitaine.player.lastName }}
+														</div>
+													</div>
+												</td>
+										
+												<td>-</td>
+												<td>-</td>
+												<td>-</td>
+											
+											</tr>
+											<!-- Staff / End -->
+		
+											<tr>
+												<th class="alc-subheader alc-highlight" colspan="12">Substitute Players</th>
+											</tr>
+		
+											<!-- Substitute -->
+											<tr *ngFor="let sub_team2 of myMatch.team2.substitutes">
+												<td class="alc-number alc-align-start">{{ sub_team2.dossart }}</td>
+												<td class="alc-position alc-align-start">{{ sub_team2.role }}</td>
+												<td class="alc-align-start">
+													<div class="alc-player-info">
+														<img src="{{ sub_team2.player.photo }}" class="alc-player-info__img" alt="Taylor Redner">
+														<div class="alc-player-info__name">
+															{{ sub_team2.player.firstName }}  {{ sub_team2.player.lastName }}
+														</div>
+													</div>
+												</td>
+		
+											
+												<td>-</td>
+												<td>-</td>
+												<td>-</td>
+		
+											
+											</tr>
+										
+											<!-- Played / End -->
+		
+										</tbody>
+								</table>
+		
+							</div>
+						</div>
+						<!-- Stats / End -->
+		
+					</div>
+					<div class="col-lg-4">
+		
+						<!-- Widget: Lineup -->
+						<div class="widget card card--alt-color widget--sidebar widget-lineup ">
+							<div class="widget__title card__header">
+								<h4>{{ myMatch.team2.name }} Tactic</h4>
+							</div>
+							<div class="widget__content card__content">
+		
+								<div class="alc-formation">
+									<ul class="alc-formation__field alc-formation__field--lineup-1">
+										<li class="alc-formation__player" >
+											<div class="alc-formation__player-tshirt alc-formation__player-tshirt--alt alc-formation__player-tshirt--clean" *ngIf="SetPositionByRole('GK','team2')[0] !=undefined ">
+												<div class="alc-formation__player-number" *ngIf="SetPositionByRole('GK','team2')[0] !=undefined ">{{ SetPositionByRole('GK','team2')[0].role }}</div>
+											</div>
+											<span class="alc-formation__player-name" *ngIf="SetPositionByRole('GK','team2')[0] !=undefined ">{{ SetPositionByRole('GK','team2')[0].player.firstName }}</span>
+										</li>
+										<li class="alc-formation__player" >
+											<div class="alc-formation__player-tshirt--alt " *ngIf="SetPositionByRole('CB','team2')[0] !=undefined ">
+												<div class="alc-formation__player-number" *ngIf="SetPositionByRole('CB','team2')[0] !=undefined ">{{ SetPositionByRole('CB','team2')[0].role }}</div>
+											</div>
+											<span class="alc-formation__player-name" *ngIf="SetPositionByRole('CB','team2')[0] !=undefined ">{{ SetPositionByRole('CB','team2')[0].player.firstName }}</span>
+										</li>
+										<li class="alc-formation__player" >
+											<div class="alc-formation__player-tshirt--alt " *ngIf="SetPositionByRole('CB','team2')[1] !=undefined ">
+												<div class="alc-formation__player-number" *ngIf="SetPositionByRole('CB','team2')[1] !=undefined ">{{ SetPositionByRole('CB','team2')[1].role }}</div>
+											</div>
+											<span class="alc-formation__player-name" *ngIf="SetPositionByRole('CB','team2')[1] !=undefined ">{{ SetPositionByRole('CB','team2')[1].player.firstName }}</span>
+										</li>
+										<li class="alc-formation__player" >
+											<div class="alc-formation__player-tshirt--alt " *ngIf="SetPositionByRole('RB','team2')[0] !=undefined ">
+												<div class="alc-formation__player-number" *ngIf="SetPositionByRole('RB','team2')[0] !=undefined ">{{ SetPositionByRole('RB','team2')[0].role }}</div>
+											</div>
+											<span class="alc-formation__player-name" *ngIf="SetPositionByRole('RB','team2')[0] !=undefined ">{{ SetPositionByRole('RB','team2')[0].player.firstName }}</span>
+										</li>
+										<li class="alc-formation__player" >
+											<div class="alc-formation__player-tshirt--alt " *ngIf="SetPositionByRole('LB','team2')[0] !=undefined ">
+												<div class="alc-formation__player-number" *ngIf="SetPositionByRole('LB','team2')[0] !=undefined ">{{ SetPositionByRole('LB','team2')[0].role }}</div>
+											</div>
+											<span class="alc-formation__player-name" *ngIf="SetPositionByRole('LB','team2')[0] !=undefined ">{{ SetPositionByRole('LB','team2')[0].player.firstName }}</span>
+										</li>
+										<li class="alc-formation__player" >
+											<div class="alc-formation__player-tshirt--alt " *ngIf="SetPositionByRole('DM','team2')[0] !=undefined ">
+												<div class="alc-formation__player-number" *ngIf="SetPositionByRole('DM','team2')[0] !=undefined ">{{ SetPositionByRole('DM','team2')[0].role }}</div>
+											</div>
+											<span class="alc-formation__player-name" *ngIf="SetPositionByRole('DM','team2')[0] !=undefined ">{{ SetPositionByRole('DM','team2')[0].player.firstName }}</span>
+										</li>
+										<li class="alc-formation__player" >
+											<div class="alc-formation__player-tshirt--alt " *ngIf="SetPositionByRole('AM','team2')[0] !=undefined ">
+												<div class="alc-formation__player-number" *ngIf="SetPositionByRole('AM','team2')[0] !=undefined ">{{ SetPositionByRole('AM','team2')[0].role }}</div>
+											</div>
+											<span class="alc-formation__player-name" *ngIf="SetPositionByRole('AM','team2')[0] !=undefined ">{{ SetPositionByRole('AM','team2')[0].player.firstName }}</span>
+										</li>
+										<li class="alc-formation__player" >
+											<div class="alc-formation__player-tshirt--alt " *ngIf="SetPositionByRole('CM','team2')[0] !=undefined ">
+												<div class="alc-formation__player-number" *ngIf="SetPositionByRole('CM','team2')[0] !=undefined ">{{ SetPositionByRole('CM','team2')[0].role }}</div>
+											</div>
+											<span class="alc-formation__player-name" *ngIf="SetPositionByRole('CM','team2')[0] !=undefined ">{{ SetPositionByRole('CM','team2')[0].player.firstName }}</span>
+										</li>
+										<li class="alc-formation__player" >
+											<div class="alc-formation__player-tshirt--alt " *ngIf="SetPositionByRole('RW','team2')[0] !=undefined ">
+												<div class="alc-formation__player-number" *ngIf="SetPositionByRole('RW','team2')[0] !=undefined ">{{ SetPositionByRole('RW','team2')[0].role }}</div>
+											</div>
+											<span class="alc-formation__player-name" *ngIf="SetPositionByRole('RW','team2')[0] !=undefined ">{{ SetPositionByRole('RW','team2')[0].player.firstName }}</span>
+										</li>
+										<li class="alc-formation__player" >
+											<div class="alc-formation__player-tshirt--alt " *ngIf="SetPositionByRole('LW','team2')[0] !=undefined ">
+												<div class="alc-formation__player-number" *ngIf="SetPositionByRole('LW','team2')[0] !=undefined ">{{ SetPositionByRole('LW','team2')[0].role }}</div>
+											</div>
+											<span class="alc-formation__player-name" *ngIf="SetPositionByRole('LW','team2')[0] !=undefined ">{{ SetPositionByRole('LW','team2')[0].player.firstName }}</span>
+										</li>
+										<li class="alc-formation__player" >
+											<div class="alc-formation__player-tshirt--alt " *ngIf="SetPositionByRole('CF','team2')[0] !=undefined ">
+												<div class="alc-formation__player-number" *ngIf="SetPositionByRole('CF','team2')[0] !=undefined ">{{ SetPositionByRole('CF','team2')[0].role }}</div>
+											</div>
+											<span class="alc-formation__player-name" *ngIf="SetPositionByRole('CF','team2')[0] !=undefined ">{{ SetPositionByRole('CF','team2')[0].player.firstName }}</span>
+										</li>
+									</ul>
+								</div>
+		
+							</div>
+						</div>
+						<!-- Widget: Lineup / End -->
+		
+					</div>
+				</div>
+				<!-- Alchemists - Stats & Lineup / End -->
+			</div>
+		</div>
+		
+		<!-- Content / End -->

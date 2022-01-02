@@ -1,0 +1,447 @@
+<!-- Page Heading
+		================================================== -->
+		<div class="page-heading" *ngIf="myTeam!=undefined">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-10 offset-md-1">
+						<h1 class="page-heading__title">Over<span class="highlight">View</span></h1>
+						<ol class="page-heading__breadcrumb breadcrumb">
+							<li class="breadcrumb-item"><a href="_soccer_index.html">Home</a></li>
+							<li class="breadcrumb-item"><a href="_soccer_team-overview.html">Team</a></li>
+							<li class="breadcrumb-item active" aria-current="page">Overview</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Page Heading / End -->
+		
+		
+		<!-- Team Pages Filter -->
+		<nav class="content-filter">
+			<div class="container">
+				<a (click)="toogle()" class="content-filter__toggle"></a>
+				<ul class="content-filter__list">
+					<li class="content-filter__item content-filter__item--active"><a routerLink="/views/team-overview/{{token}}" class="content-filter__link"><small>The Team</small>Overview</a></li>
+					<li class="content-filter__item "><a routerLink="/views/team-roster/{{token}}" class="content-filter__link"><small>The Team</small>Roster</a></li>
+					<li class="content-filter__item "><a routerLink="/views/team-results/{{token}}" class="content-filter__link"><small>The Team</small>Match Results</a></li>
+				</ul>
+			</div>
+		</nav>
+		<!-- Team Pages Filter / End -->
+		
+		<!-- Content
+		================================================== -->
+		<div class="site-content" *ngIf="myTeam!=undefined">
+			<div class="container">
+		
+				<div class="row">
+		
+					<!-- Content -->
+					<div class="content col-lg-8">
+		
+						
+		
+						<!-- Team Roster: Table -->
+						<div class="card card--has-table">
+							<div class="card__header card__header--has-btn">
+								<h4>Main Lineup</h4>
+								<a routerLink="/views/team-roster/{{token}}" class="btn btn-default btn-outline btn-xs card-header__button">See Complete Roster</a>
+							</div>
+							<div class="card__content">
+								<div class="table-responsive">
+									<table class="table table--lg team-roster-table">
+										<thead>
+											<tr>
+												<th class="team-roster-table__number">NBR</th>
+												<th class="team-roster-table__position">Pos</th>
+												<th class="team-roster-table__name">Player Name</th>
+												<th class="team-roster-table__age">Age</th>
+												<th class="team-roster-table__height">Height</th>
+												<th class="team-roster-table__weight">Weight</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr *ngFor=" let titu of myTeam.titulares">
+												<td class="team-roster-table__number">{{ titu.dossart }}</td>
+												<td class="team-roster-table__position">{{ titu.role }}</td>
+												<td class="team-roster-table__name">{{ titu.player.firstName }} {{ titu.player.lastName }}</td>
+												<td class="team-roster-table__age">{{ titu.age }}</td>
+												<td class="team-roster-table__height">{{ titu.height }}</td>
+												<td class="team-roster-table__weight">{{ titu.weight }} lbs</td>
+											</tr>
+
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<!-- Team Roster: Table / End -->
+		
+						<div class="row">
+		
+							<div class="col-md-6">
+		
+								
+		
+							</div>
+							<div class="col-md-6">
+		
+								
+		
+							</div>
+						</div>
+		
+						
+						<!-- Widget: Latest Results -->
+						<aside class="widget card widget--sidebar widget-results">
+							<div class="widget__title card__header card__header--has-btn">
+								<h4>Latest Results</h4>
+								<a routerLink="/views/team-results/{{token}}" class="btn btn-default btn-outline btn-xs card-header__button">See Full Results</a>
+							</div>
+							<div class="widget__content card__content">
+								<ul class="widget-results__list">
+						
+									<!-- Game #0 -->
+									<li class="widget-results__item" *ngIf="matches.length == 0">
+										<div class="widget-results__header justify-content-center">
+											<div class="widget-results__title">No Matches Found</div>
+										</div>
+									</li>	
+									<li class="widget-results__item" *ngFor="let myMatch of LastestMatches(matches)">
+										<div class="widget-results__header justify-content-center">
+											<div class="widget-results__title">{{ ConvertDate(myMatch.start_date) }}</div>
+										</div>
+										<div class="widget-results__content">
+											<div class="widget-results__team widget-results__team--first" style="width:60px">
+												<figure class="widget-results__team-logo">
+													<img src="{{ CheckTeamImage(myMatch.team1.image) }}" style="width:20px;height:20px" alt="">
+												</figure>
+												<div class="widget-results__team-details">
+													<h5 class="widget-results__team-name" >{{myMatch.team1.name}}</h5>
+													<span class="widget-results__team-info">{{myMatch.team1.categorie}}</span>
+												</div>
+											</div>
+											<div class="widget-results__result">
+												<div class="widget-results__score">
+													<span class="{{ GuessWinner('team1',myMatch) }}">{{ GoalsNumber(myMatch.team1._id,myMatch) }}</span> - <span class="{{ GuessWinner('team2',myMatch) }}">{{ GoalsNumber(myMatch.team2._id,myMatch) }}</span>
+													<div class="widget-results__status">{{myMatch.type}}</div>
+												</div>
+											</div>
+											<div class="widget-results__team widget-results__team--second">
+												<figure class="widget-results__team-logo">
+													<img src="{{ CheckTeamImage(myMatch.team2.image) }}" style="width:20px;height:20px" alt="">
+												</figure>
+												<div class="widget-results__team-details">
+													<h5 class="widget-results__team-name">{{myMatch.team2.name}}</h5>
+													<span class="widget-results__team-info">{{myMatch.team2.categorie}}</span>
+												</div>
+											</div>
+										</div>
+									</li>
+									<!-- Game #0 / End -->
+									
+						
+								</ul>
+							</div>
+						</aside>
+						<!-- Widget: Latest Results / End -->
+
+						<!-- Widget: Team Leaders -->
+						<aside class="widget widget--sidebar card card--has-table widget-leaders">
+							<div class="widget__title card__header">
+								<h4>Participations</h4>
+							</div>
+							<div class="widget__content card__content">
+						
+								<!-- Leader: Points -->
+								<div class="table-responsive">
+									<table class="table team-leader">
+										<thead>
+											<tr>
+												<th class="team-leader__type">Challenge Name</th>
+												<th class="team-leader__goals">match Duration</th>
+												<th class="team-leader__gp">player Per Team</th>
+												<th class="team-leader__avg">Date Created</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr *ngFor="let par of myTeam.participations">
+												<td class="team-leader__player">
+													<div class="team-leader__player-info">
+														<figure class="team-leader__player-img team-leader__player-img--sm">
+															<img src="{{ CheckChallengeImage(par.image) }}" alt="">
+														</figure>
+														<div class="team-leader__player-inner">
+															<h5 class="team-leader__player-name" style="cursor : pointer;" (click)="GoToChallenge(par._id)">{{ par.name }}</h5>
+															<span class="team-leader__player-position">{{ par.categorie }}</span>
+														</div>
+													</div>
+												</td>
+												<td class="team-leader__goals">{{ par.matchDuration }}</td>
+												<td class="team-leader__gp">{{ par.playerPerTeam }}</td>
+												<td class="team-leader__avg">
+													{{ ConvertSemiDate(par.date_created) }}
+												
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<!-- Leader: Points / End -->
+						
+						
+							</div>
+						</aside>
+						<!-- Widget: Team Leaders / End -->
+
+						<!-- Widget: Team Newslog -->
+						<aside class="widget card widget--sidebar widget-newslog">
+							<div class="widget__title card__header">
+								<h4>Team Newslog</h4>
+							</div>
+							<div class="widget__content card__content">
+								<ul class="newslog">
+									<li class="newslog__item newslog__item--join">
+										<div class="newslog__item-inner">
+											<div class="newslog__content"><strong>Dominick R. Blink</strong>, a new <strong>Shooting Guard</strong> from San Francisco has joined the team!.</div>
+											<time class="newslog__date" datetime="2016-01-19">September 6, 2016</time>
+										</div>
+									</li>
+									
+									<li class="newslog__item newslog__item--exit">
+										<div class="newslog__item-inner">
+											<div class="newslog__content"><strong>Jeremy Rittersen</strong> left the team after 2 year in the club and his new house are the <strong>Clovers</strong>.</div>
+											<time class="newslog__date" datetime="2016-01-19">August 12, 2016</time>
+										</div>
+									</li>
+						
+								</ul>
+							</div>
+						</aside>
+						<!-- Widget: Team Newslog / End -->
+						<div class="row">
+						<div class="col-md-6">
+						<!-- Widget: Awards -->
+								<aside class="widget card widget--sidebar widget-awards">
+									<div class="widget__title card__header">
+										<h4>Champions</h4>
+									</div>
+									<div class="widget__content card__content" style="height:400px;overflow-y: scroll;">
+										<div class="awards awards--slider">
+
+											<div class="awards__item" *ngIf="myTeam.champions.length == 0">
+												<figure class="awards__figure awards__figure--space">
+													
+												</figure>
+												<div class="awards__desc">
+													<h5 class="awards__name">No Champions Found</h5>
+													<div class="awards__date"></div>
+												</div>
+											</div>
+								
+											<div class="awards__item" *ngFor="let champ of myTeam.champions">
+												<figure class="awards__figure awards__figure--space">
+													<img src="assets/images/soccer/trophy-04.svg" alt="">
+												</figure>
+												<div class="awards__desc">
+													<h5 class="awards__name">{{ champ.name }}</h5>
+													<div class="awards__date">{{ ConvertDate(champ.date_created) }}</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</aside>
+								<!-- Widget: Awards / End -->
+								</div>
+								<!-- Widget: Awards -->
+								<div class="col-md-6">
+								<aside class="widget card widget--sidebar widget-awards">
+									<div class="widget__title card__header">
+										<h4>second Prizes</h4>
+									</div>
+									<div class="widget__content card__content" style="height:400px;overflow-y: scroll;">
+										<div class="awards awards--slider">
+								
+											<div class="awards__item" *ngIf="myTeam.secondPrizes.length == 0" >
+												<figure class="awards__figure awards__figure--space">
+													
+												</figure>
+												<div class="awards__desc">
+													<h5 class="awards__name">No Second Prizes Found</h5>
+													<div class="awards__date"></div>
+												</div>
+											</div>
+											<div class="awards__item" *ngFor="let sec of myTeam.secondPrizes">
+												<figure class="awards__figure awards__figure--space">
+													<img src="assets/images/soccer/second-prize.svg" style="height:50%;width:50%" alt="">
+												</figure>
+												<div class="awards__desc">
+													<h5 class="awards__name">{{ sec.name }}</h5>
+													<div class="awards__date">{{ ConvertDate(sec.date_created) }}</div>
+												</div>
+											</div>
+								
+										</div>
+									</div>
+								</aside>
+								<!-- Widget: Awards / End -->
+								</div>
+								</div>
+					</div>
+					<!-- Content / End -->
+		
+					<!-- Sidebar -->
+					<div class="sidebar col-lg-4">
+		
+						<!-- Widget: Standings -->
+													<!-- Widget: Awards -->
+								<aside class="widget card widget--sidebar widget-awards">
+									<div class="widget__title card__header">
+										<h4>Team Information</h4>
+									</div>
+									<div class="widget__content card__content">
+										<div class="awards awards--slider">
+								
+											<div class="awards__item">
+												<figure class="awards__figure awards__figure--space">
+													<img src="{{ CheckTeamImage(myTeam.image) }}" style="height:70%;width:70%" alt="">
+												</figure>
+												<div class="awards__desc">
+													<h5 class="awards__name">{{ myTeam.name }}</h5>
+													<div class="awards__date">{{ myTeam.categorie }}</div>
+													<div class="awards__stars">
+														<i class="fas fa-star" *ngFor='let in of counter(myTeam.rating)'></i>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<ul class="alc-event-info list-unstyled">
+									<li class="alc-event-info__item">
+										<span class="alc-event-info__icon">
+											<i class="icon-svg icon-calendar"></i>
+										</span>
+										<span class="alc-event-info__value">{{ ConvertFullDate(myTeam.date_created) }}</span>
+									</li>
+									<li class="alc-event-info__item">
+										<span class="alc-event-info__icon">
+											<i class="icon-svg icon-map-pin"></i>
+										</span>
+										<span class="alc-event-info__value">{{ myTeam.nationality.Name }}&nbsp; &nbsp;<img src="http://www.geognos.com/api/en/countries/flag/{{ myTeam.nationality.CountryCodes.iso2 }}.png" style="height:15px;width:22px;border-radius:20%"></span>
+									</li>
+									<!--
+									<li class="alc-event-info__item">
+										<span class="alc-event-info__icon">
+											<i class="icon-svg icon-trophy-new"></i>
+										</span>
+										<span class="alc-event-info__value">Type : {{ myMatch.type }}</span>
+									</li>
+									
+									<li class="alc-event-info__item">
+										<span class="alc-event-info__icon">
+											<i class="icon-svg icon-whistle"></i>
+										</span>
+										<span class="alc-event-info__value">M. Refree, T. Addit &amp; J. Swanson</span>
+									</li>
+									<li class="alc-event-info__item">
+										<span class="alc-event-info__icon">
+											<i class="icon-svg icon-person"></i>
+										</span>
+										<span class="alc-event-info__value">12.700 Attendance (18.000 Capacity)</span>
+									</li>
+						
+									<li class="alc-event-info__item alc-event-info__item--desc">
+										<span class="alc-event-info__label">Additional Info:</span>
+										<span class="alc-event-info__desc">Lorem ipsum dolor sit amet, consectetur dere adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</span>
+									</li>
+						-->
+								</ul>
+									</div>
+								</aside>
+								<!-- Widget: Awards / End -->
+
+						<!-- Widget: Standings / End -->
+
+
+						<!-- Widget: Team Stats -->
+								<aside class="widget widget--sidebar card card--has-table widget-team-stats">
+									<div class="widget__title card__header">
+										<h4>Team Stats</h4>
+									</div>
+									<div class="widget__content card__content">
+									 <!-- <div id="Timer_cy">
+			<svg class="Timer_Progress_cz" viewBox="0 0 50.239 43.34">
+				<path id="Timer_Progress_cz" d="M 7.883744716644287 43.21454620361328 C 7.671502113342285 43.12847900390625 7.480995655059814 43.00198364257812 7.317658424377441 42.83864593505859 C 7.317258358001709 42.83824157714844 7.316858768463135 42.83784866333008 7.316459178924561 42.83744812011719 L 7.315899848937988 42.83688735961914 L 7.314221382141113 42.83856582641602 C 6.126350402832031 41.64494323730469 5.057944297790527 40.33369064331055 4.138492584228516 38.94124221801758 C 3.231506586074829 37.56741714477539 2.457891702651978 36.09746551513672 1.839303255081177 34.57213592529297 C 1.232062697410583 33.07461166381836 0.7680212259292603 31.50844192504883 0.4598857164382935 29.91726303100586 C 0.1547070294618607 28.34110260009766 0 26.7269115447998 0 25.11958503723145 C 0 23.51178169250488 0.1547070294618607 21.89766883850098 0.4598058760166168 20.3219108581543 C 0.7680212259292603 18.73057174682617 1.232142448425293 17.16440391540527 1.839383244514465 15.6670389175415 C 2.457731962203979 14.14202404022217 3.231267213821411 12.67206764221191 4.138492584228516 11.29792404174805 C 5.069451332092285 9.888059616088867 6.152481079101562 8.562264442443848 7.357372283935547 7.357370376586914 C 8.562346458435059 6.152399063110352 9.888062477111816 5.069449901580811 11.29792785644531 4.138491153717041 C 12.67167186737061 3.231426000595093 14.14170932769775 2.45789098739624 15.66712284088135 1.839382767677307 C 17.16472625732422 1.232061982154846 18.73081588745117 0.7678612470626831 20.3219165802002 0.4598058462142944 C 21.89823341369629 0.1547070145606995 23.51243019104004 4.606913250881917e-08 25.11967277526855 4.606913250881917e-08 C 26.7271556854248 4.606913250881917e-08 28.34127044677734 0.1547070145606995 29.91727066040039 0.4598058462142944 C 31.50860786437988 0.7679412364959717 33.07469940185547 1.232141971588135 34.57205963134766 1.839382767677307 C 36.09747695922852 2.45789098739624 37.5675163269043 3.231426000595093 38.94125366210938 4.138491153717041 C 40.35111999511719 5.069449901580811 41.67683792114258 6.152399063110352 42.88181304931641 7.357370376586914 C 44.0867919921875 8.562343597412109 45.16973495483398 9.888140678405762 46.1006965637207 11.29792404174805 C 47.00783920288086 12.67190647125244 47.7813720703125 14.14186477661133 48.39980316162109 15.6670389175415 C 49.00704574584961 17.16448402404785 49.47124481201172 18.73064994812012 49.77938461303711 20.3219108581543 C 50.08447647094727 21.89759254455566 50.23918914794922 23.51178169250488 50.23918914794922 25.11958503723145 L 50.23918914794922 25.12350082397461 L 50.23918914794922 25.12741661071777 L 50.23910522460938 25.12741661071777 C 50.23918914794922 25.13141250610352 50.23918914794922 25.13533020019531 50.23918914794922 25.13932228088379 C 50.23918914794922 26.08850288391113 49.50911712646484 26.85796165466309 48.56002426147461 26.85796165466309 C 47.61084747314453 26.85796165466309 46.81908798217773 26.07659530639648 46.81908798217773 25.12741661071777 L 46.81661224365234 25.12741661071777 L 46.81661224365234 25.12350082397461 L 46.81661224365234 25.11958503723145 C 46.81661224365234 23.73081970214844 46.68299865722656 22.33662033081055 46.41938018798828 20.9755802154541 C 46.15351867675781 19.60175704956055 45.75259780883789 18.2490291595459 45.2279052734375 16.95495796203613 C 44.69346618652344 15.63722991943359 44.02532958984375 14.36753082275391 43.24196624755859 13.18117618560791 C 42.43814849853516 11.9637393951416 41.5027961730957 10.8186206817627 40.46171569824219 9.777544975280762 C 39.42112731933594 8.736868858337402 38.2760009765625 7.801434516906738 37.05807876586914 6.997213363647461 C 35.87149429321289 6.213769912719727 34.60179138183594 5.545637607574463 33.28422546386719 5.011355400085449 C 31.99023246765137 4.486582279205322 30.63750457763672 4.085670948028564 29.26359939575195 3.819808006286621 C 27.90240287780762 3.556262493133545 26.50820159912109 3.422652006149292 25.11959457397461 3.422572374343872 C 23.73050498962402 3.422652006149292 22.33630180358887 3.556262493133545 20.9755859375 3.819808006286621 C 19.60136413574219 4.085750579833984 18.24863624572754 4.486661911010742 16.95496368408203 5.011355400085449 C 15.63763332366943 5.545477867126465 14.36793518066406 6.213610649108887 13.18118000030518 6.997213363647461 C 11.96350288391113 7.801275253295898 10.81830310821533 8.736708641052246 9.777466773986816 9.777544975280762 C 8.736471176147461 10.81854057312012 7.801038265228271 11.9637393951416 6.997215747833252 13.18117618560791 C 6.213691711425781 14.36784934997559 5.545558929443359 15.63755130767822 5.011356830596924 16.95495796203613 C 4.486583709716797 18.24894714355469 4.085751533508301 19.60175704956055 3.819809198379517 20.97565841674805 C 3.556184053421021 22.33709907531738 3.422573566436768 23.73129653930664 3.422573566436768 25.11958503723145 C 3.422652959823608 26.50803184509277 3.556263446807861 27.90223503112793 3.819809198379517 29.26358985900879 C 4.085911750793457 30.63805198669434 4.486823558807373 31.99077987670898 5.011356830596924 33.28421401977539 C 5.545479774475098 34.60145950317383 6.21361255645752 35.87115859985352 6.997215747833252 37.05799102783203 C 7.774828433990479 38.23563766479492 8.676538467407227 39.34687042236328 9.677340507507324 40.36077880859375 C 9.698515892028809 40.38011932373047 9.718892097473145 40.39945602416992 9.737832069396973 40.41839599609375 C 9.901248931884766 40.58180618286133 10.02766799926758 40.77223968505859 10.11381149291992 40.98455810546875 C 10.19691848754883 41.18960952758789 10.23911094665527 41.40625 10.23911094665527 41.62856292724609 C 10.23911094665527 41.85079574584961 10.19699859619141 42.06750869750977 10.11381149291992 42.27256011962891 C 10.02774810791016 42.48480224609375 9.901248931884766 42.67531204223633 9.737913131713867 42.83864593505859 C 9.574494361877441 43.00198364257812 9.384067535400391 43.12847900390625 9.171745300292969 43.21454620361328 C 8.966694831848145 43.29773330688477 8.750057220458984 43.33985137939453 8.527745246887207 43.33985137939453 C 8.305513381958008 43.33985137939453 8.08879566192627 43.29773330688477 7.883744716644287 43.21454620361328 Z">
+				</path>
+			</svg>
+			<svg class="Indicator_Circle_c">
+				<ellipse id="Indicator_Circle_c" rx="0.663744330406189" ry="0.663744330406189" cx="0.663744330406189" cy="0.663744330406189">
+				</ellipse>
+			</svg>
+		</div>-->
+										<ul class="team-stats-box">
+											<li class="team-stats__item team-stats__item--clean">
+												<div class="team-stats__icon team-stats__icon--circle">
+													<div class="team-stats__icon-primary">
+														<i class="icon-svg icon-soccer-ball"></i>
+													</div>
+												</div>
+												<div class="team-stats__value">{{ myTeam.victories.length || '0' }}</div>
+												<div class="team-stats__label">Victories</div>
+											</li>
+											<li class="team-stats__item team-stats__item--clean">
+												<div class="team-stats__icon team-stats__icon--circle team-stats__icon--shots-ot">
+													<div class="team-stats__icon-primary">
+														<i class="icon-svg icon-soccer-ball-own-goal"></i>
+													</div>
+													<div class="team-stats__icon-secondary">
+														<i class="icon-svg icon-soccer-gate"></i>
+													</div>
+												</div>
+												<div class="team-stats__value">{{ myTeam.draws.length || '0' }}</div>
+												<div class="team-stats__label">Draws</div>
+											</li>
+											<li class="team-stats__item team-stats__item--clean">
+												<div class="team-stats__icon team-stats__icon--circle team-stats__icon--shots">
+													<div class="team-stats__icon-primary">
+														<i class="icon-svg icon-smile"></i>
+													</div>
+													<div class="team-stats__icon-secondary">
+														<i class="icon-svg icon-soccer-shots"></i>
+													</div>
+												</div>
+												<div class="team-stats__value">{{ myTeam.defeats.length || '0' }}</div>
+												<div class="team-stats__label">Defeats</div>
+											</li>
+											<li class="team-stats__item team-stats__item--clean">
+												<div class="team-stats__icon team-stats__icon--circle team-stats__icon--assists">
+													<div class="team-stats__icon-primary">
+														<i class="icon-svg icon-crosshair" style="font-size:30px"></i>
+													</div>
+													<span class="team-stats__icon-secondary">$</span>
+												</div>
+												<div class="team-stats__value">{{ myTeam.prizeCollected }} DT</div>
+												<div class="team-stats__label">Prize Collected</div>
+											</li>
+										</ul>
+									</div>
+								</aside>
+								<!-- Widget: Team Stats / End -->
+
+								
+		
+						
+		
+						
+		
+						
+		
+		
+					</div>
+					<!-- Sidebar / End -->
+				</div>
+			</div>
+		</div>
+		
+		<!-- Content / End -->

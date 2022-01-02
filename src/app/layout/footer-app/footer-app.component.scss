@@ -1,0 +1,17 @@
+@import "~src/assets/css/sass/themes/vien.light.greenlime.scss";
+#inputContact {
+    border-color:#00F164;
+    color:white; 
+    font-size:20px;
+}
+#btnContact {
+    float: right;
+    border: 2px solid #00F164 !important;
+    border-radius:10px;
+    color: #00F164;
+}
+
+#contact button:hover {
+    background-color:#00F164 !important;
+    color: white !important;
+}

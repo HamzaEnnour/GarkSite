@@ -1,0 +1,362 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+// @import '../node_modules/@syncfusion/ej2-angular-calendars/styles/material.css';
+// @import '../node_modules/@syncfusion/ej2-angular-schedule/styles/material.scss';
+//@import "~@angular/material/theming";
+//@import "~ng-pick-datetime/assets/style/picker.min.css";
+@import "~@angular/material/theming";
+//@import "~ng-pick-datetime/assets/style/picker.min.css";
+
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$leBistrot-primary: mat-palette($mat-indigo);
+$leBistrot-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$leBistrot-warn: mat-palette($mat-red);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$leBistrot-theme: mat-light-theme(
+  (
+    color: (
+      primary: $leBistrot-primary,
+      accent: $leBistrot-accent,
+      warn: $leBistrot-warn,
+    ),
+  )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($leBistrot-theme);
+
+/* You can add global styles to this file, and also import other style files */
+*::-webkit-scrollbar {
+  background-color: #fff;
+  width: 16px;
+}
+
+/* background of the scrollbar except button or resizer */
+*::-webkit-scrollbar-track {
+  background-color: #fff;
+}
+
+/* scrollbar itself */
+*::-webkit-scrollbar-thumb {
+  background-color: #babac0;
+  border-radius: 16px;
+  border: 4px solid #fff;
+}
+
+/* set button(top and bottom of the scrollbar) */
+*::-webkit-scrollbar-button {
+  display:none;
+}
+
+.cdk-global-overlay-wrapper {
+  display: flex;
+  position: absolute;
+  z-index: 1000;
+  overflow: auto;
+  pointer-events: auto !important;  
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+$main-menu-item-height: 110px;
+$main-menu-width: 120px;
+$main-menu-width-lg: 110px;
+$main-menu-width-md: 100px;
+$main-menu-width-xs: 90px;
+
+$sub-menu-width: 230px;
+$sub-menu-width-lg: 230px;
+$sub-menu-width-md: 230px;
+$sub-menu-width-xs: 230px;
+
+$navbar-height: 100px;
+$navbar-height-xs: 70px;
+$navbar-height-md: 80px;
+$navbar-height-lg: 90px;
+
+$main-margin: 60px;
+$main-margin-lg: 50px;
+$main-margin-md: 40px;
+$main-margin-xs: 15px;
+
+$app-menu-width: 280px;
+
+$main-menu-item-height-mobile: 70px;
+
+$menu-collapse-time: 300ms;
+$animation-time-long: 1000ms;
+$animation-time-short: 200ms;
+
+$border-radius: 0.1rem;
+$border-radius-rounded: 0.75rem;
+
+$theme-color-purple-monster: #922c88;
+$theme-color-blue-navy: #00365a;
+$theme-color-blue-yale: #145388;
+$theme-color-blue-olympic: #008ecc;
+$theme-color-green-moss: #576a3d;
+$theme-color-green-lime: linear-gradient(90deg, #21f56d 0%, #00f85c 100%);
+$theme-color-orange-carrot: #ed7117;
+$theme-color-red-ruby: #900604;
+$theme-color-yellow-granola: #c0a145;
+$theme-color-grey-steel: #48494b;
+
+$info-color: #3195a5;
+$success-color: #3e884f;
+$warning-color: #b69329;
+$error-color: #c43d4b;
+$separator-color-light: #f3f3f3;
+$separator-color: #d7d7d7;
+$background-color: #f8f8f8;
+$foreground-color : white;
+$input-background: white;
+
+$dark-btn-background: #131113;
+$light-btn-background: #ececec;
+$button-text-color: #fff;
+$button-black-color: #191b17;
+
+$theme-color-1: #21f56d;
+$theme-color-2: #77c791;
+$theme-color-3: #7ff36c;
+$theme-color-4: #21f56d;
+$theme-color-5: #3db264;
+$theme-color-6: #9ecd7e;
+
+$primary-color: #3a3a3a;
+$secondary-color: #8f8f8f;
+$muted-color: #909090;
+
+$gradient-color-1 : #8ebb4e;
+$gradient-color-2 : #6c9e37;
+$gradient-color-3 : #76a543;
+
+$lp-bg-color-1 : #426d14;
+$lp-bg-color-2 : #51831d;
+$lp-bg-color-3 : #70ad2e;
+$lp-bg-color-4 : #8de231;
+
+$shadow-offsets-top : 1 3 10 14 19;
+$shadow-blurs-top: 1.5 5 10 14 19;
+$shadow-opacities-top: 0.04 0.1 0.19 0.25 0.3;
+
+$shadow-offsets-bottom : 1 3 6 10 15;
+$shadow-blurs-bottom: 3 6 6 5 6;
+$shadow-opacities-bottom: 0.04 0.1 0.2 0.22 0.22;
+
+$logo-path: "../../imgs/GARK-LOGO.png";
+$logo-path-mobile: "../../logos/mobile.svg";
+
+$lp-logo-path-pinned: "../../imgs/GARK-LOGO.png";
+$lp-logo-path: "../../imgs/GARK-LOGO.png";
+
+.simple-notification .sn-title {
+  font-size: 1rem !important;
+  line-height: 1 !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.simple-notification .sn-content {
+  font-size: 0.8rem !important;
+}
+
+.simple-notification.success {
+  color: $success-color !important;
+  background-color: mix($success-color, $background-color, 20%) !important;
+  border-color: rgba($success-color, 0.1) !important;
+
+  .icon svg {
+    fill: $success-color !important;
+  }
+}
+
+.simple-notification .sn-progress-loader {
+  margin: 15px 7%;
+  height: 2px !important;
+  width: 86% !important;
+  top: initial !important;
+  bottom: 0 !important;
+  opacity: 0.75;
+}
+
+.simple-notification.success .sn-progress-loader span {
+  border-radius: $border-radius;
+}
+
+.simple-notification.bare {
+  .icon {
+    display: none;
+  }
+}
+
+.simple-notification.outline.primary {
+  background-color: $foreground-color !important;
+  border: 1px solid $theme-color-1 !important;
+  color: $primary-color !important;
+
+  .sn-title {
+    color: $theme-color-1 !important;
+  }
+
+  .sn-progress-loader span {
+    background: $theme-color-1 !important;
+  }
+}
+
+.simple-notification.outline.secondary {
+  background-color: $foreground-color !important;
+  border: 1px solid $theme-color-2 !important;
+  color: $primary-color !important;
+
+  .sn-title {
+    color: $theme-color-2 !important;
+  }
+}
+
+.simple-notification.outline.info {
+  background-color: $foreground-color !important;
+  border: 1px solid $info-color !important;
+  color: $primary-color !important;
+
+  .sn-title {
+    color: $info-color !important;
+  }
+  .icon svg {
+    fill: $info-color !important;
+  }
+}
+
+.simple-notification.outline.success {
+  background-color: $foreground-color !important;
+  border: 1px solid $success-color !important;
+  color: $primary-color !important;
+  .sn-title {
+    color: $success-color !important;
+  }
+  .icon svg {
+    fill: $success-color !important;
+  }
+}
+
+.simple-notification.outline.warn {
+  background-color: $foreground-color !important;
+  border: 1px solid $warning-color !important;
+  color: $primary-color !important;
+  .sn-title {
+    color: $warning-color !important;
+  }
+  .icon svg {
+    fill: $warning-color !important;
+  }
+}
+
+.simple-notification.outline.error {
+  background-color: $foreground-color !important;
+  border: 1px solid $error-color !important;
+  color: $primary-color !important;
+  .sn-title {
+    color: $error-color !important;
+  }
+  .icon svg {
+    fill: $error-color !important;
+  }
+}
+
+.simple-notification.primary {
+  color: $theme-color-1 !important;
+  background-color: mix($theme-color-1, $background-color, 20%) !important;
+  border-color: rgba($theme-color-1, 0.1) !important;
+  .sn-progress-loader {
+    background: rgba($color: $theme-color-1, $alpha: 0.1) !important;
+    span {
+      background: rgba($color: $theme-color-1, $alpha: 0.5) !important;
+    }
+  }
+}
+
+.simple-notification.secondary {
+  color: $theme-color-2 !important;
+  background-color: mix($theme-color-2, $background-color, 20%) !important;
+  border-color: rgba($theme-color-2, 0.1) !important;
+  .sn-progress-loader {
+    background: rgba($color: $theme-color-2, $alpha: 0.1) !important;
+    span {
+      background: rgba($color: $theme-color-2, $alpha: 0.5) !important;
+    }
+  }
+}
+
+.simple-notification.info {
+  color: $info-color !important;
+  background-color: mix($info-color, $background-color, 20%) !important;
+  border-color: rgba($info-color, 0.1) !important;
+  .icon svg {
+    fill: $info-color !important;
+  }
+  .sn-progress-loader {
+    background: rgba($color: $info-color, $alpha: 0.1) !important;
+    span {
+      background: rgba($color: $info-color, $alpha: 0.5) !important;
+    }
+  }
+}
+
+.simple-notification.error {
+  color: $error-color !important;
+  background-color: mix($error-color, $background-color, 20%) !important;
+  border-color: rgba($error-color, 0.1) !important;
+  .icon svg {
+    fill: $error-color !important;
+  }
+  .sn-progress-loader {
+    background: rgba($color: $error-color, $alpha: 0.1) !important;
+    span {
+      background: rgba($color: $error-color, $alpha: 0.5) !important;
+    }
+  }
+}
+
+.simple-notification.success {
+  color: $success-color !important;
+  background-color: mix($success-color, $background-color, 20%) !important;
+  border-color: rgba($success-color, 0.1) !important;
+  .icon svg {
+    fill: $success-color !important;
+  }
+  .sn-progress-loader {
+    background: rgba($color: $success-color, $alpha: 0.1) !important;
+    span {
+      background: rgba($color: $success-color, $alpha: 0.5) !important;
+    }
+  }
+}
+
+.simple-notification.warn {
+  color: $warning-color !important;
+  background-color: mix($warning-color, $background-color, 20%) !important;
+  border-color: rgba($warning-color, 0.1) !important;
+  .icon svg {
+    fill: $warning-color !important;
+  }
+  .sn-progress-loader {
+    background: rgba($color: $warning-color, $alpha: 0.1) !important;
+    span {
+      background: rgba($color: $warning-color, $alpha: 0.5) !important;
+    }
+  }
+}

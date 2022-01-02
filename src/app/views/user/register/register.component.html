@@ -1,0 +1,84 @@
+<!-- Page Heading
+		================================================== -->
+		<div class="page-heading">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-10 offset-md-1">
+						<h1 class="page-heading__title"><span class="highlight">Register</span></h1>
+						<ol class="page-heading__breadcrumb breadcrumb">
+							<li class="breadcrumb-item"><a href="_soccer_index.html">Home</a></li>
+							<li class="breadcrumb-item active" aria-current="page">Register</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Page Heading / End -->
+
+    <!-- Content
+		================================================== -->
+		<div class="site-content">
+			<div class="container">
+		
+				<div class="row">
+		
+				
+		
+					<div class="col-md-12">
+		
+						<!-- Register -->
+						<div class="card">
+							<div class="card__header">
+								<h4>Register Now</h4>
+							</div>
+							<div class="card__content">
+		
+								<!-- Register Form -->
+								<form  #registerForm="ngForm" novalidate (ngSubmit)="onSubmit()">
+                <div class="form-group">
+										<label for="register-firstname">Your First Name</label>
+										<input type="text"  ngModel #displayName="ngModel" [(ngModel)]="firstNameModel" name="register-firstname" id="register-firstname" class="form-control" placeholder="Enter your first name...">
+									</div>
+                  <div class="form-group">
+										<label for="register-lastname">Your Last Name</label>
+										<input type="text" ngModel #disName="ngModel" [(ngModel)]="lastNameModel"  name="register-lastname" id="register-lastname" class="form-control" placeholder="Enter your last name...">
+									</div>
+									<div class="form-group">
+										<label for="register-email">Your Email</label>
+										<input type="email" ngModel #email="ngModel" [(ngModel)]="emailModel"  name="register-email" id="register-email" class="form-control" placeholder="Enter your email address...">
+									</div>
+                  <div class="form-group">
+										<label for="register-phone">Your Phone</label>
+										<input type="text" ngModel  #phone="ngModel" [(ngModel)]="phoneModel"  name="register-phone" id="register-phone" class="form-control" placeholder="Enter your phone number...">
+									</div>
+                  <div class="form-group">
+										<label for="register-birthday">Your Birthday Date</label>
+										<input type="datetime-local" ngModel  #birthday="ngModel" [(ngModel)]="birthdayModel"  name="register-birthday" id="register-birthday" class="form-control" placeholder="Enter your birthday date...">
+									</div>
+									<div class="form-group">
+										<label for="register-password">Your Password</label>
+										<input type="password" [(ngModel)]="passwordModel" ngModel #password="ngModel"  name="register-password" id="register-password" class="form-control" placeholder="Enter your password...">
+									</div>
+									<div class="form-group form-group--submit">
+										<input type="submit"  class="btn btn-default btn-lg btn-block" value="Create Your Account">
+									</div>
+                  <br>
+                  <br>
+                  <div class="row">
+					<span class="password-reminder">Already have an account? <a routerLink="/views/login">Click Here</a></span>
+								
+									</div>
+								</form>
+								<!-- Register Form / End -->
+		
+							</div>
+						</div>
+						<!-- Register / End -->
+					</div>
+		
+				</div>
+			</div>
+		</div>
+		
+		<!-- Content / End -->
+    <simple-notifications></simple-notifications>
